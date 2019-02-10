@@ -1,0 +1,14 @@
+body {
+    margin: 0;
+    background-color: rgb(236, 236, 236);
+}
+
+#content {
+    margin: 0 auto;
+    width: 800px;
+}
+
+#footer {
+    margin: 0 auto;
+    width: 800px;
+}
