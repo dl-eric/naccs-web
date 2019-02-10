@@ -1,8 +1,11 @@
 # NACCS website
+![](https://img.shields.io/website-up-down-green-red/http/naccs.azurewebsites.net.svg?style=flat)
 
 This is the official repository for the North American Collegiate Counter-Strike website!
 
-## Deployment
+Master branch should ALWAYS be production ready. Master is set up with Azure App Service Kudu, and CD is triggered upon every commit (for now).
+
+## Local Deployment
 
 *We are using a virtual environment to contain our dependencies.
 
