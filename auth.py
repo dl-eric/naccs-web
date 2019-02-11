@@ -1,7 +1,7 @@
 import os
 from flask import Blueprint, render_template, request, redirect, url_for
 from warrant import Cognito
-from forms import RegisterForm, VerificationForm
+from forms import RegisterForm, VerificationForm, SignInForm
 
 AWS_COGNITO_POOL_ID = os.environ.get('AWS_COGNITO_POOL_ID')
 AWS_COGNITO_CLIENT_ID = os.environ.get('AWS_COGNITO_CLIENT_ID')
@@ -18,7 +18,24 @@ def user():
 
 @auth_page.route('/signin', methods=['post', 'get'])
 def signin():
-    return render_template('signin.html')
+    form = SignInForm()
+    if form.validate_on_submit():
+        username = form.username.data
+        password = form.password.data
+
+        auth = Cognito(AWS_COGNITO_POOL_ID, AWS_COGNITO_CLIENT_ID, username=username)
+        
+        try: 
+            auth.authenticate(password)
+        except auth.client.exceptions.UserNotFoundException:
+            pass # TODO
+        except auth.client.exceptions.InvalidPasswordException:
+            pass # TODO
+        except:
+            pass # TODO
+
+        return redirect(url_for('index'))
+    return render_template('signin.html', form=form)
 
 @auth_page.route('/verification', methods=['post', 'get'])
 def verification():
@@ -26,7 +43,7 @@ def verification():
     if form.validate_on_submit():
         code = form.code.data
         try:
-            auth.confirm_sign_up(code, username=cognito_user)
+            auth.confirm_sign_up(code, username=session.get('curr_username', None))
         except:
             pass # TODO
         return redirect(url_for('auth_page.signin')) # TODO: Add success message!
@@ -47,7 +64,7 @@ def register():
 
         try:
             auth.register(username, password)
-            cognito_user = username
+            session['curr_username'] = username
         except auth.client.exceptions.UsernameExistsException:
             pass # TODO
 

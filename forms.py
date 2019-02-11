@@ -87,3 +87,8 @@ class RegisterForm(FlaskForm):
 class VerificationForm(FlaskForm):
     code    = StringField("Verification Code: ", validators=[DataRequired()])
     submit  = SubmitField("Submit")
+
+class SignInForm(FlaskForm):
+    username    = StringField("Username: ", validators=[DataRequired()])
+    password    = PasswordField("Password: ", validators=[DataRequired()])
+    submit      = SubmitField()
