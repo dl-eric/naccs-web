@@ -78,7 +78,7 @@ def discord_validate(form, field):
 
 class RegisterForm(FlaskForm):
     username =  StringField("Username: ", validators=[DataRequired()])
-    email =     StringField("Email: ", validators=[Email(), email_validate])
+    email =     StringField("Email: ", validators=[DataRequired(), Email(), email_validate])
     password =  PasswordField("Password: ", validators=[DataRequired(), password_validate])
     discord =   StringField("Discord: ", validators=[DataRequired(), discord_validate])
     esea =      StringField("ESEA: ", validators=[DataRequired(), esea_validate])
