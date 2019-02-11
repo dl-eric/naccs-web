@@ -8,20 +8,32 @@
 
     <div id="header">
       <div class="header__container">
-        <img href="/" class="header__logo"
+        <a href="/"><img href="/" class="header__logo"
             src="{{ url_for('static', filename='assets/headerbanner.png') }}"/>
-        <div class="header__menu">
-          
+        </a>
+      </div>
+    </div>
+    <div class="header_menu">
+      <div class="header_menu__container">
+        <div class="header_menu__tabs">
+            <a href="/"><div class="header_menu__button_left">Home</div></a>
+            <a href="/signin"><div class="header_menu__button">Sign In</div></a>
+            <a href="/register"><div class="header_menu__button">Register</div></a>
         </div>
       </div>
     </div>
+
     {% endblock %}
   </head>
   <body>
     <div id="content">{% block content %}{% endblock %}</div>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}">
     <div id="footer">
       {% block footer %}
-      &copy; Copyright 2019 NACCS.
+      <div class="footer__container">
+        &copy; Copyright 2019 NACCS.
+      </div>
       {% endblock %}
     </div>
   </body>

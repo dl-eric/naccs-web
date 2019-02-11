@@ -1,5 +1,6 @@
 #header {
     background-color: white;
+    display: flex;
 }
 
 .header__container {
@@ -16,9 +17,41 @@
     text-align: center;
 }
 
-.header__menu {
-    height: 40px;
+.header_menu {
     background-color: rgb(39, 39, 39);
+    height: 50px;
+}
+
+.header_menu__container {
+    height: 100%;
+    max-width: 800px;
     font-size: 24px;
     color: white;
+    margin: 0 auto;
+}
+
+.header_menu__button_left {
+    height: 100%;
+    width: 100px;
+    float: left;
+    text-align: center;
+}
+
+.header_menu__button {
+    padding: 0 10px;
+    height: 100%;
+    width: 75px;
+    float: right;
+    text-align: center;
+}
+
+.header_menu__tabs {
+    font-size: 16px;
+    color: white;
+    height: 100%;
+}
+
+a {
+    color: white;
+    text-decoration: none;
 }

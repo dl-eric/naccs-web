@@ -1,5 +1,9 @@
-<html>
-    <form action="" method="POST">
+{% extends "base.html" %}
+{% block title %}Verification{% endblock %}
+
+{% block content %}
+  <h1>Verify</h1>
+  <form action="" method="POST">
         {{ form.csrf_token() }}
 
         {% for field in form if field.name != "csrf_token" %}
@@ -11,4 +15,4 @@
             </p>
         {% endfor %}
     </form>
-</html>
+{% endblock %}
