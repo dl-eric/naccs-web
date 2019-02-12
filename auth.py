@@ -7,16 +7,14 @@ import boto3
 
 AWS_COGNITO_POOL_ID = os.environ.get('AWS_COGNITO_POOL_ID')
 AWS_COGNITO_CLIENT_ID = os.environ.get('AWS_COGNITO_CLIENT_ID')
-AWS_COGNITO_ACCESS_KEY = os.environ.get('AWS_COGNITO_ACCESS_KEY')
-AWS_COGNIRO_SECRET_KEY = os.environ.get('AWS_COGNITO_SECRET_KEY')
-
-auth = Cognito(AWS_COGNITO_POOL_ID, AWS_COGNITO_CLIENT_ID)
+AWS_IAM_ACCESS_KEY = os.environ.get('AWS_IAM_ACCESS_KEY')
+AWS_IAM_SECRET_KEY = os.environ.get('AWS_IAM_SECRET_KEY')
 
 auth_page = Blueprint('auth_page', __name__, template_folder='templates')
 
 # Uses boto3 to add a 'username' to 'groupname'
 def add_user_to_group(username, groupname):
-    boto3_client_kwargs = {'aws_access_key_id': AWS_COGNITO_ACCESS_KEY, 'aws_secret_access_key': AWS_COGNIRO_SECRET_KEY}
+    boto3_client_kwargs = {'aws_access_key_id': AWS_IAM_ACCESS_KEY, 'aws_secret_access_key': AWS_IAM_SECRET_KEY}
     boto3_client = boto3.client('cognito-idp', **boto3_client_kwargs)
     add_user_to_group_kwargs = {'UserPoolId': AWS_COGNITO_POOL_ID, 'Username': username, 'GroupName': groupname}
     boto3_client.admin_add_user_to_group(**add_user_to_group_kwargs)
@@ -77,6 +75,8 @@ def verification():
     if 'verify' not in session:
         return redirect(url_for('index'))
 
+    auth = Cognito(AWS_COGNITO_POOL_ID, AWS_COGNITO_CLIENT_ID, username=session.get('username'))
+
     form = VerificationForm()
 
     if form.validate_on_submit():
@@ -103,6 +103,8 @@ def register():
     if 'access_token' in session:
         # We're already logged in!
         return redirect(url_for('index'))
+
+    auth = Cognito(AWS_COGNITO_POOL_ID, AWS_COGNITO_CLIENT_ID, username='dummy', access_key='dummy', secret_key='dummy')
 
     form = RegisterForm()
     if form.validate_on_submit():
