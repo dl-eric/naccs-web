@@ -97,6 +97,6 @@ class VerificationForm(FlaskForm):
     submit  = SubmitField("Submit")
 
 class SignInForm(FlaskForm):
-    username    = StringField("Username: ", validators=[DataRequired()])
+    email       = StringField("E-mail: ", validators=[DataRequired(), Email()])
     password    = PasswordField("Password: ", validators=[DataRequired()])
     submit      = SubmitField()

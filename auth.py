@@ -38,18 +38,18 @@ def signin():
 
     form = SignInForm()
     if form.validate_on_submit():
-        username = form.username.data
+        email = str(form.email.data).lower()
         password = form.password.data
 
-        auth = Cognito(AWS_COGNITO_POOL_ID, AWS_COGNITO_CLIENT_ID, username=username, access_key='dummy', secret_key='dummy')
+        auth = Cognito(AWS_COGNITO_POOL_ID, AWS_COGNITO_CLIENT_ID, username=email, access_key='dummy', secret_key='dummy')
     
         try: 
             auth.authenticate(password)
         except auth.client.exceptions.UserNotFoundException:
-            flash("Username not found")
+            flash("E-mail not found")
             return render_template('signin.html', form=form)
         except auth.client.exceptions.NotAuthorizedException:
-            flash("Username or password is incorrect")
+            flash("E-mail or password is incorrect")
             return render_template('signin.html', form=form)
         except auth.client.exceptions.UserNotConfirmedException:
             session['verify'] = True
@@ -111,7 +111,7 @@ def register():
     form = RegisterForm()
     if form.validate_on_submit():
         username = form.username.data
-        email = form.email.data
+        email = str(form.email.data).lower()
         password = form.password.data
         discord = form.discord.data
         esea = form.esea.data
