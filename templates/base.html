@@ -7,24 +7,28 @@
     <title>{% block title %}{% endblock %} - NACCS</title>
 
     <div id="header">
-      <div class="header__container">
-        <a href="/"><img href="/" class="header__logo"
-            src="{{ url_for('static', filename='assets/headerbanner.png') }}"/>
-        </a>
-      </div>
-    </div>
-    <div class="header_menu">
-      <div class="header_menu__container">
-        <div class="header_menu__tabs">
-            <a href="/"><div class="header_menu__button_left">Home</div></a>
-            {% if session['username'] is defined %}
-            <a href="/signout"><div class="header_menu__button">Sign Out</div></a>
-            <a href="/user"><div class="header_menu__button">Account</div></a>
-            {% else %}
-            <a href="/register"><div class="header_menu__button">Register</div></a>
-            <a href="/signin"><div class="header_menu__button">Sign In</div></a>
-            {% endif %}
+      <div class="header_menu">
+        <div class="header_menu__container">
+          <div class="header_menu__tabs">
+            <div class="header_menu__tabs-left">
+              <div class="header_menu__button"><a href="/">Home</a></div>
+            </div>
+  
+            <div class="header_menu__tabs-right">
+              {% if session['username'] is defined %}
+              <a href="/signout"><div class="header_menu__button">Sign Out</div></a>
+              <a href="/user"><div class="header_menu__button">Account</div></a>
+              {% else %}
+              <a href="/register"><div class="header_menu__button">Register</div></a>
+              <a href="/signin"><div class="header_menu__button">Sign In</div></a>
+              {% endif %}
+            </div>
+          </div>
         </div>
+      </div>
+      <div class="header__container">
+        <a href="/"><img class="header__logo"
+            src="{{ url_for('static', filename='assets/headerbanner.png') }}"/></a>
       </div>
     </div>
 

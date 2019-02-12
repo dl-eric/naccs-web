@@ -1,20 +1,15 @@
 #header {
-    background-color: white;
-    display: flex;
+    box-shadow: 0 5px 20px #888888;
+    margin-bottom: 30px;
 }
 
 .header__container {
-    margin: 0 auto;
-    max-width: 1200px;
-    display: block;
-    align-items: center;
+    background-color: rgb(39, 39, 39);
+    text-align: center;
 }
 
 .header__logo {
-    display: block;
-    height: 300px;
-    margin: 0 auto;
-    text-align: center;
+    height: 250px;
 }
 
 .header_menu {
@@ -23,35 +18,40 @@
 }
 
 .header_menu__container {
+    margin: 0 auto;
     height: 100%;
-    max-width: 800px;
+    width: 100%;
+    max-width: 1200px;
     font-size: 24px;
     color: white;
-    margin: 0 auto;
 }
 
-.header_menu__button_left {
-    height: 100%;
-    width: 100px;
-    float: left;
-    text-align: center;
+.header_menu__tabs-left {
+}
+
+.header_menu__tabs-right {
+    margin-left: auto;
 }
 
 .header_menu__button {
+    display: inline-block;
     padding: 0 10px;
-    height: 100%;
     width: 75px;
-    float: right;
     text-align: center;
+    margin-left: auto;
 }
 
 .header_menu__tabs {
+    width: 100%;
     font-size: 16px;
     color: white;
     height: 100%;
+    display: flex;
+    align-items: center;
 }
 
-a {
+.header_menu a {
+    margin: 0 auto;
     color: white;
     text-decoration: none;
 }

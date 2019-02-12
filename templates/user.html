@@ -2,9 +2,11 @@
 {% block title %}User{% endblock %}
 
 {% block content %}
-  <h1>User Page</h1>
-  <p>{{ user['username'] }}</p>
-  <p>{{ user['email'] }}</p>
-  <p>{{ user['discord'] }}</p>
-  <p>{{ user['esea'] }}</p>
+  <div class="card center">
+    <h1>User Page</h1>
+    <p>{{ user['username'] }}</p>
+    <p>{{ user['email'] }}</p>
+    <p>{{ user['discord'] }}</p>
+    <p>{{ user['esea'] }}</p>
+  </div>
 {% endblock %}
