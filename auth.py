@@ -1,7 +1,9 @@
 import os
 from flask import Blueprint, render_template, request, redirect, url_for, session, flash
 from warrant import Cognito
+from warrant.aws_srp import AWSSRP
 from forms import RegisterForm, VerificationForm, SignInForm
+import boto3
 
 AWS_COGNITO_POOL_ID = os.environ.get('AWS_COGNITO_POOL_ID')
 AWS_COGNITO_CLIENT_ID = os.environ.get('AWS_COGNITO_CLIENT_ID')
@@ -31,8 +33,8 @@ def signin():
         username = form.username.data
         password = form.password.data
 
-        auth = Cognito(AWS_COGNITO_POOL_ID, AWS_COGNITO_CLIENT_ID, username=username)
-        
+        auth = Cognito(AWS_COGNITO_POOL_ID, AWS_COGNITO_CLIENT_ID, username=username, access_key='dummy', secret_key='dummy')
+    
         try: 
             auth.authenticate(password)
         except auth.client.exceptions.UserNotFoundException:
@@ -43,10 +45,6 @@ def signin():
             return render_template('signin.html', form=form)
         except auth.client.exceptions.UserNotConfirmedException:
             session['verify'] = True
-            # print(auth.access_token)
-            # session['access_token'] = auth.access_token
-            # session['id_token'] = auth.id_token
-            # session['refresh_token'] = auth.refresh_token
             return redirect(url_for('auth_page.verification'))
 
         session['username'] = username

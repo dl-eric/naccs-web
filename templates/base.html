@@ -15,12 +15,12 @@
             </div>
   
             <div class="header_menu__tabs-right">
-              {% if session['username'] is defined %}
-              <a href="/signout"><div class="header_menu__button">Sign Out</div></a>
+              {% if session['access_token'] is defined %}
               <a href="/user"><div class="header_menu__button">Account</div></a>
+              <a href="/signout"><div class="header_menu__button">Sign Out</div></a>
               {% else %}
-              <a href="/register"><div class="header_menu__button">Register</div></a>
               <a href="/signin"><div class="header_menu__button">Sign In</div></a>
+              <a href="/register"><div class="header_menu__button">Register</div></a>
               {% endif %}
             </div>
           </div>

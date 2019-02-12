@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, PasswordField
-from wtforms.validators import DataRequired, Email, ValidationError
+from wtforms.validators import DataRequired, Email, ValidationError, EqualTo
 
 def esea_validate(form, field):
     mesg = "Enter a valid ESEA page URL"
@@ -11,6 +11,13 @@ def esea_validate(form, field):
         if not 'play.esea.net/users/' in esea:
             raise ValidationError(mesg)
     
+    return _validate(form, field)
+
+def verify_pass(form, field, pw=''):
+
+    def _validate(form, field):
+        if field.data != pw:
+            raise ValidationError("Passwords must match")
     return _validate(form, field)
 
 def password_validate(form, field):
@@ -40,18 +47,18 @@ def password_validate(form, field):
     return _validate(form, field)
 
 def email_validate(form, field):
-    message = "You must use a .edu address"
+    message = "You must use a .edu or .ca address"
 
     def _suffix_validator(field, suffix):
-        return len(field) >= len(suffix) and field[len(field)-len(suffix)].lower() == suffix
+        return len(field) >= len(suffix) and field[len(field)-len(suffix):].lower() == suffix
 
     def _validate(form, field):
         email = str(field.data)
 
         is_edu = _suffix_validator(email, 'edu')
         is_ca = _suffix_validator(email, 'ca')
-
-        if is_edu or is_ca:
+        print(is_edu, is_ca)
+        if not is_edu and not is_ca:
             raise ValidationError(message)
 
     return _validate(form, field)
@@ -80,6 +87,7 @@ class RegisterForm(FlaskForm):
     username =  StringField("Username: ", validators=[DataRequired()])
     email =     StringField("Email: ", validators=[DataRequired(), Email(), email_validate])
     password =  PasswordField("Password: ", validators=[DataRequired(), password_validate])
+    verify_pass = PasswordField("Repeat Password: ", validators=[EqualTo('password', message="Passwords must match")])
     discord =   StringField("Discord: ", validators=[DataRequired(), discord_validate])
     esea =      StringField("ESEA: ", validators=[DataRequired(), esea_validate])
     submit =    SubmitField("Submit")
