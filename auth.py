@@ -24,10 +24,11 @@ def user():
     if 'access_token' not in session:
         return redirect(url_for('index'))
         
-    auth = Cognito(AWS_COGNITO_POOL_ID, AWS_COGNITO_CLIENT_ID, username=session.get('username'), access_token=session.get('access_token'))
-    user = auth.get_user(attr_map={"custom:discord":"discord", "custom:esea":"esea"})
-    
-    return render_template('user.html', user=user)
+    auth = Cognito('dummy', 'dummy')
+    user = auth.client.get_user(AccessToken=session.get('access_token'))
+    user = auth.get_user_obj(username=user['Username'], attribute_list=user['UserAttributes'], attr_map={"custom:discord":"discord", "custom:esea":"esea"})
+   
+    return render_template('user.html', user=user, username=session.get('username'))
 
 @auth_page.route('/signin', methods=['post', 'get'])
 def signin():
@@ -53,8 +54,9 @@ def signin():
         except auth.client.exceptions.UserNotConfirmedException:
             session['verify'] = True
             return redirect(url_for('auth_page.verification'))
-
-        session['username'] = username
+        
+        user = auth.client.get_user(AccessToken=auth.access_token)
+        session['username'] = user['Username']
         session['access_token'] = auth.access_token
         session['id_token'] = auth.id_token
         session['refresh_token'] = auth.refresh_token
