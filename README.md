@@ -13,6 +13,10 @@ Make sure you have the following environmental variables:
 
 - AWS_COGNITO_POOL_ID
 
+- AWS_IAM_ACCESS_KEY
+
+- AWS_IAM_SECRET_KEY
+
 - AWS_DEFAULT_REGION
 
 - FLASK_SECRET_KEY
