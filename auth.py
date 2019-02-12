@@ -56,7 +56,7 @@ def signin():
 
 @auth_page.route('/signout')
 def signout():
-    if 'username' in session:
+    if 'access_token' in session:
         session.pop('username', None)
         session.pop('access_token', None)
         session.pop('id_token', None)
@@ -91,7 +91,7 @@ def verification():
 
 @auth_page.route('/register', methods=['post', 'get'])
 def register():
-    if 'username' in session:
+    if 'access_token' in session:
         # We're already logged in!
         return redirect(url_for('index'))
 
