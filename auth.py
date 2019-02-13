@@ -106,7 +106,7 @@ def verification():
 
         session.pop('verify', None)
         flash("You've been verified!")
-        return redirect(url_for('auth_page.signin')) # TODO: Add success message!
+        return redirect(url_for('auth_page.signin'))
     return render_template('verification.html', form=form)
 
 @auth_page.route('/register', methods=['post', 'get'])
