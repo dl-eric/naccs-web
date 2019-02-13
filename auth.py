@@ -24,7 +24,16 @@ def user():
     if 'access_token' not in session:
         return redirect(url_for('index'))
         
-    auth = Cognito('dummy', 'dummy')
+    id_token        = session.get('id_token')
+    refresh_token   = session.get('refresh_token')
+    access_token    = session.get('access_token')
+    auth = Cognito(AWS_COGNITO_POOL_ID, AWS_COGNITO_CLIENT_ID, id_token=id_token, refresh_token=refresh_token, access_token=access_token)
+    
+    if auth.check_token():
+        session['id_token']         = auth.id_token
+        session['refresh_token']    = auth.refresh_token
+        session['access_token']     = auth.access_token
+
     user = auth.client.get_user(AccessToken=session.get('access_token'))
     user = auth.get_user_obj(username=user['Username'], attribute_list=user['UserAttributes'], attr_map={"custom:discord":"discord", "custom:esea":"esea"})
    
