@@ -9,25 +9,20 @@
     <div id="header">
       <div class="header_menu">
         <div class="header_menu__container">
-          <div class="header_menu__tabs">
-            <div class="header_menu__tabs-left">
-              <div class="header_menu__button"><a href="/">Home</a></div>
-            </div>
-  
-            <div class="header_menu__tabs-right">
-              {% if session['access_token'] is defined %}
-              <a href="/user"><div class="header_menu__button">{{ username }}</div></a>
-              <a href="/signout"><div class="header_menu__button">Sign Out</div></a>
-              {% else %}
-              <a href="/signin"><div class="header_menu__button">Sign In</div></a>
-              <a href="/register"><div class="header_menu__button">Register</div></a>
-              {% endif %}
-            </div>
-          </div>
+          <ul>
+            <li class="header_menu__tabs-left"><a href="/">Home</a></li>
+            {% if session['access_token'] is defined %}
+            <li class="header_menu__tabs-right"><a href="/signout">Sign Out</a></li>
+            <li class="header_menu__tabs-right"><a href="/user">{{ username }}</a></li>
+            {% else %}
+            <li class="header_menu__tabs-right"><a href="/register">Register</a></li>
+            <li class="header_menu__tabs-right"><a href="/signin">Sign In</a></li>
+            {% endif %}
+          </ul>
         </div>
       </div>
-      <div class="header__container">
-        <a href="/"><img class="header__logo"
+      <div class="header_logo__container">
+        <a href="/"><img class="header_logo__image"
             src="{{ url_for('static', filename='assets/headerbanner.png') }}"/></a>
       </div>
     </div>
