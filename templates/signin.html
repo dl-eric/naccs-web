@@ -6,13 +6,23 @@
         <div class="card">
             <h1>Sign In Page</h1>
 
-            {% with messages = get_flashed_messages() %}
+            {% with messages = get_flashed_messages(category_filter=["success"]) %}
             {% if messages %}
-                <ul class=flashes>
+                <ul class="flashes success">
             {% for message in messages %}
                 <li>{{ message }}</li>
             {% endfor %}
-            </ul>
+                </ul>
+            {% endif %}
+            {% endwith %}
+            
+            {% with messages = get_flashed_messages(category_filter=["error"]) %}
+            {% if messages %}
+                <ul class="flashes error">
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+                </ul>
             {% endif %}
             {% endwith %}
 
@@ -21,11 +31,7 @@
 
                 {% for field in form if field.name != "csrf_token" %}
                     <p>{{ field.label() }}</p>
-                    <p>{{ field }}
-                        {% for error in field.errors %}
-                            {{ error }}
-                        {% endfor %}
-                    </p>
+                    <p>{{ field }}</p>
                 {% endfor %}
             </form>
         </div>

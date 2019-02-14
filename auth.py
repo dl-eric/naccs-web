@@ -12,6 +12,12 @@ AWS_IAM_SECRET_KEY = os.environ.get('AWS_IAM_SECRET_KEY')
 
 auth_page = Blueprint('auth_page', __name__, template_folder='templates')
 
+def flash_errors(form):
+    """Flashes form errors"""
+    for field, errors in form.errors.items():
+        for error in errors:
+            flash(error, 'error')
+
 # Uses boto3 to add a 'username' to 'groupname'
 def add_user_to_group(username, groupname):
     boto3_client_kwargs = {'aws_access_key_id': AWS_IAM_ACCESS_KEY, 'aws_secret_access_key': AWS_IAM_SECRET_KEY}
@@ -55,10 +61,10 @@ def signin():
         try: 
             auth.authenticate(password)
         except auth.client.exceptions.UserNotFoundException:
-            flash("E-mail not found")
+            flash("E-mail not found", 'error')
             return render_template('signin.html', form=form)
         except auth.client.exceptions.NotAuthorizedException:
-            flash("E-mail or password is incorrect")
+            flash("E-mail or password is incorrect", 'error')
             return render_template('signin.html', form=form)
         except auth.client.exceptions.UserNotConfirmedException:
             session['verify'] = True
@@ -70,6 +76,8 @@ def signin():
         session['id_token'] = auth.id_token
         session['refresh_token'] = auth.refresh_token
         return redirect(url_for('index'))
+    else:
+        flash_errors(form)
     return render_template('signin.html', form=form)
 
 @auth_page.route('/signout')
@@ -95,17 +103,17 @@ def verification():
         try:
             auth.confirm_sign_up(code, username=session.get('username', None))
         except auth.client.exceptions.CodeMismatchException:
-            flash("Invalid or expired Code")
+            flash("Invalid or expired Code", 'error')
             return render_template('verification.html', form=form)
         except auth.client.exceptions.AliasExistsException:
-            flash("Email already exists")
+            flash("Email already exists", 'error')
             return render_template('verification.html', form=form)
         except auth.client.exceptions.NotAuthorizedException:
-            flash("The email associated with this account has already been verified by another account")
+            flash("The email associated with this account has already been verified by another account", 'error')
             return render_template('verification.html', form=form)
 
         session.pop('verify', None)
-        flash("You've been verified!")
+        flash("You've been verified!", 'success')
         return redirect(url_for('auth_page.signin'))
     return render_template('verification.html', form=form)
 
@@ -133,10 +141,12 @@ def register():
             session['username'] = username
             add_user_to_group(username, 'NotInDiscord')
         except auth.client.exceptions.UsernameExistsException:
-            flash("Username already exists")
+            flash("Username already exists", 'error')
             return render_template('register.html', form=form)
 
         session['verify'] = True
         return redirect(url_for('auth_page.verification'))
+    else:
+        flash_errors(form)
 
     return render_template('register.html', form=form)

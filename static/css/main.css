@@ -57,3 +57,19 @@ input:hover {
 #submit {
     cursor: pointer;
 }
+
+.flashes {
+    list-style: none;
+    padding: 12px;
+    font-size: 18px;
+}
+
+.error {
+    border-left: red solid 6px;
+    background-color: pink;
+}
+
+.success {
+    border-left: green solid 6px;
+    background-color: greenyellow;
+}

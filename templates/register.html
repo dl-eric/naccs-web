@@ -2,18 +2,29 @@
 {% block title %}Register{% endblock %}
 
 {% block content %}
+    <script src="{{ url_for('static', filename='js/register.js') }}"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/register.css') }}">
     <div class="main_col">
         <div class="card">
             <h1>Register</h1>
 
-            {% with messages = get_flashed_messages() %}
+            {% with messages = get_flashed_messages(category_filter=["success"]) %}
             {% if messages %}
-                <ul class=flashes>
+                <ul class="flashes success">
             {% for message in messages %}
                 <li>{{ message }}</li>
             {% endfor %}
-            </ul>
+                </ul>
+            {% endif %}
+            {% endwith %}
+            
+            {% with messages = get_flashed_messages(category_filter=["error"]) %}
+            {% if messages %}
+                <ul class="flashes error">
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+                </ul>
             {% endif %}
             {% endwith %}
 
