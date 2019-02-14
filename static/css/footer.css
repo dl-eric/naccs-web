@@ -1,8 +1,9 @@
 #footer {
     background-color: rgb(39, 39, 39);
     height: 200px;
-    width: 100%;
     color: white;
+    margin: 30px auto 0 auto;
+    width: 100%;
 }
 
 .footer__container {

@@ -2,32 +2,58 @@
 {% block title %}Register{% endblock %}
 
 {% block content %}
-    <div class="card">
-        <h1>Register</h1>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/register.css') }}">
+    <div class="main_col">
+        <div class="card">
+            <h1>Register</h1>
 
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            <ul class=flashes>
-        {% for message in messages %}
-            <li>{{ message }}</li>
-        {% endfor %}
-        </ul>
-        {% endif %}
-        {% endwith %}
-
-        <form action="" method="POST">
-            {{ form.csrf_token() }}
-
-            {% for field in form if field.name != "csrf_token" %}
-                {% if field.name != "Submit" %}
-                <p>{{ field.label() }}</p>
-                {% endif %}
-                <p>{{ field }}
-                    {% for error in field.errors %}
-                        {{ error }}
-                    {% endfor %}
-                </p>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul class=flashes>
+            {% for message in messages %}
+                <li>{{ message }}</li>
             {% endfor %}
-        </form>
+            </ul>
+            {% endif %}
+            {% endwith %}
+
+            <div class="register">
+                <form action="" method="POST">
+                    {{ form.csrf_token() }}
+
+                    <div class="register input_group">
+                        <p>{{ form.username.label() }}</p>
+                        <p>{{ form.username }}</p>
+                    </div>
+
+                    <div class="register input_group">
+                        <p>{{ form.email.label() }}</p>
+                        <p>{{ form.email }}</p>
+                    </div>
+
+                    <div class="register input_group">
+                        <p>{{ form.password.label() }}</p>
+                        <p>{{ form.password }}</p>
+                    </div>
+
+                    <div class="register input_group">
+                        <p>{{ form.verify_pass.label() }}</p>
+                        <p>{{ form.verify_pass }}</p>
+                    </div>
+
+                    <div class="register input_group">
+                        <p>{{ form.discord.label() }}</p>
+                        <p>{{ form.discord }}</p>
+                    </div>
+
+                    <div class="register input_group">
+                        <p>{{ form.esea.label() }}</p>
+                        <p>{{ form.esea }}</p>
+                    </div>
+
+                    {{ form.submit }}
+                </form>
+            </div>
+        </div>
     </div>
 {% endblock %}

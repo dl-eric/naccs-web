@@ -30,9 +30,11 @@
     {% endblock %}
   </head>
   <body>
-    <div id="content">{% block content %}{% endblock %}</div>
+    <div id="content"><div class="content_container">{% block content %}{% endblock %}</div></div>
+  </body>
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}">
+  <footer>
     <div id="footer">
       {% block footer %}
       <div class="footer__container">
@@ -40,5 +42,5 @@
       </div>
       {% endblock %}
     </div>
-  </body>
+  </footer>
 </html>

@@ -1,0 +1,11 @@
+.register {
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    flex-direction: row;
+}
+
+.input_group {
+    min-width: 400px;
+    flex-basis: 50%;
+}

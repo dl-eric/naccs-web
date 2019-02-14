@@ -84,17 +84,17 @@ def discord_validate(form, field):
     return _validate(form, field)
 
 class RegisterForm(FlaskForm):
-    username =  StringField("Username: ", validators=[DataRequired()])
-    email =     StringField("Email: ", validators=[DataRequired(), Email(), email_validate])
-    password =  PasswordField("Password: ", validators=[DataRequired(), password_validate])
-    verify_pass = PasswordField("Repeat Password: ", validators=[EqualTo('password', message="Passwords must match")])
-    discord =   StringField("Discord: ", validators=[DataRequired(), discord_validate])
-    esea =      StringField("ESEA: ", validators=[DataRequired(), esea_validate])
-    submit =    SubmitField("Submit")
+    username =  StringField("Username: ", validators=[DataRequired()], render_kw={"placeholder": "Username"})
+    email =     StringField("Email: ", validators=[DataRequired(), Email(), email_validate], render_kw={"placeholder": "College E-Mail"})
+    password =  PasswordField("Password: ", validators=[DataRequired(), password_validate], render_kw={"placeholder": "Password"})
+    verify_pass = PasswordField("Confirm: ", validators=[EqualTo('password', message="Passwords must match")], render_kw={"placeholder": "Confirm Password"})
+    discord =   StringField("Discord: ", validators=[DataRequired(), discord_validate], render_kw={"placeholder": "name#0000"})
+    esea =      StringField("ESEA: ", validators=[DataRequired(), esea_validate], render_kw={"placeholder": "https://play.esea.net/users/######"})
+    submit =    SubmitField()
 
 class VerificationForm(FlaskForm):
     code    = StringField("Verification Code: ", validators=[DataRequired()])
-    submit  = SubmitField("Submit")
+    submit  = SubmitField()
 
 class SignInForm(FlaskForm):
     email       = StringField("E-mail: ", validators=[DataRequired(), Email()])
