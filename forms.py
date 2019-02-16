@@ -100,3 +100,7 @@ class SignInForm(FlaskForm):
     email       = StringField("E-mail: ", validators=[DataRequired(), Email()])
     password    = PasswordField("Password: ", validators=[DataRequired()])
     submit      = SubmitField()
+
+class ProfileForm(FlaskForm):
+    discord     = StringField(validators=[DataRequired(), discord_validate])
+    submit      = SubmitField("Change Profile")

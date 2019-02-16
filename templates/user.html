@@ -4,9 +4,42 @@
 {% block content %}
   <div class="card center">
     <h1>User Page</h1>
-    <p>{{ user['username'] }}</p>
-    <p>{{ user['email'] }}</p>
-    <p>{{ user['discord'] }}</p>
-    <p>{{ user['esea'] }}</p>
+
+    {% with messages = get_flashed_messages(category_filter=["success"]) %}
+    {% if messages %}
+        <ul class="flashes success">
+    {% for message in messages %}
+        <li>{{ message }}</li>
+    {% endfor %}
+        </ul>
+    {% endif %}
+    {% endwith %}
+    
+    {% with messages = get_flashed_messages(category_filter=["error"]) %}
+    {% if messages %}
+        <ul class="flashes error">
+    {% for message in messages %}
+        <li>{{ message }}</li>
+    {% endfor %}
+        </ul>
+    {% endif %}
+    {% endwith %}
+
+    <form action="" method="POST">
+      {{ form.csrf_token() }}
+      <p>Username</p>
+      <p></p><input disabled value="{{ user['username'] }}"></p>
+
+      <p>E-mail</p>
+      <p><input disabled value="{{ user['email'] }}"></p>
+
+      <p>Discord</p>
+      <p>{{ form.discord }}</p>
+
+      <p>ESEA Profile Link</p>
+      <p><input disabled value="{{ user['esea'] }}"></p>
+
+      <p>{{ form.submit }}</p>
+    </form>
   </div>
 {% endblock %}

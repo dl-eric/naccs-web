@@ -2,7 +2,7 @@ import os
 from flask import Blueprint, render_template, request, redirect, url_for, session, flash
 from warrant import Cognito
 from warrant.aws_srp import AWSSRP
-from forms import RegisterForm, VerificationForm, SignInForm
+from forms import RegisterForm, VerificationForm, SignInForm, ProfileForm
 import boto3
 
 AWS_COGNITO_POOL_ID = os.environ.get('AWS_COGNITO_POOL_ID')
@@ -25,7 +25,7 @@ def add_user_to_group(username, groupname):
     add_user_to_group_kwargs = {'UserPoolId': AWS_COGNITO_POOL_ID, 'Username': username, 'GroupName': groupname}
     boto3_client.admin_add_user_to_group(**add_user_to_group_kwargs)
 
-@auth_page.route('/user')
+@auth_page.route('/user', methods=['post', 'get'])
 def user():
     if 'access_token' not in session:
         return redirect(url_for('index'))
@@ -34,16 +34,29 @@ def user():
     refresh_token   = session.get('refresh_token')
     access_token    = session.get('access_token')
     auth = Cognito(AWS_COGNITO_POOL_ID, AWS_COGNITO_CLIENT_ID, id_token=id_token, refresh_token=refresh_token, access_token=access_token)
-    
+    form = ProfileForm()
+
+    # Renew tokens if expired
     if auth.check_token():
         session['id_token']         = auth.id_token
         session['refresh_token']    = auth.refresh_token
         session['access_token']     = auth.access_token
-
+    
+    if form.validate_on_submit():
+        discord = form.discord.data 
+        
+        try:
+            auth.update_profile({'custom:discord':discord}, attr_map=dict())
+            flash('Sucessfully changed profile settings!', 'success')
+        except:
+            flash("Something went wrong.", "error")
+    else:
+        flash_errors(form)
     user = auth.client.get_user(AccessToken=session.get('access_token'))
     user = auth.get_user_obj(username=user['Username'], attribute_list=user['UserAttributes'], attr_map={"custom:discord":"discord", "custom:esea":"esea"})
-   
-    return render_template('user.html', user=user, username=session.get('username'))
+    form.discord.data = user.discord
+
+    return render_template('user.html', user=user, username=session.get('username'), form=form)
 
 @auth_page.route('/signin', methods=['post', 'get'])
 def signin():

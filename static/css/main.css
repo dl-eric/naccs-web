@@ -54,6 +54,11 @@ input:hover {
     box-shadow: 0 0px 10px #bbb;
 }
 
+input:disabled {
+    cursor: default;
+    box-shadow: none;
+}
+
 #submit {
     cursor: pointer;
 }
