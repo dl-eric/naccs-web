@@ -9,7 +9,8 @@
 }
 
 .header_logo__image {
-    height: 250px;
+    padding: 20px;
+    height: 160px;
 }
 
 .header_menu {
