@@ -2,7 +2,7 @@ import os
 from flask import Blueprint, render_template, request, redirect, url_for, session, flash
 from warrant import Cognito
 from warrant.aws_srp import AWSSRP
-from forms import RegisterForm, VerificationForm, SignInForm, ProfileForm
+from forms import RegisterForm, VerificationForm, SignInForm, ProfileForm, email_validate
 import boto3
 
 AWS_COGNITO_POOL_ID = os.environ.get('AWS_COGNITO_POOL_ID')
@@ -11,6 +11,21 @@ AWS_IAM_ACCESS_KEY = os.environ.get('AWS_IAM_ACCESS_KEY')
 AWS_IAM_SECRET_KEY = os.environ.get('AWS_IAM_SECRET_KEY')
 
 auth_page = Blueprint('auth_page', __name__, template_folder='templates')
+
+def is_email(input):
+    if '@' not in input:
+        return False 
+
+    def _suffix_validator(field, suffix):
+        return len(field) >= len(suffix) and field[len(field)-len(suffix):].lower() == suffix
+
+    def _validate(input):
+        is_edu = _suffix_validator(input, 'edu')
+        is_ca = _suffix_validator(input, 'ca')
+        
+        if not is_edu and not is_ca:
+            return False
+    return _validate(input)
 
 def flash_errors(form):
     """Flashes form errors"""
@@ -66,15 +81,18 @@ def signin():
 
     form = SignInForm()
     if form.validate_on_submit():
-        email = str(form.email.data).lower()
+        email_or_username = str(form.email_or_username.data)
+        if is_email(email_or_username):
+            email_or_username = email_or_username.lower()
+
         password = form.password.data
 
-        auth = Cognito(AWS_COGNITO_POOL_ID, AWS_COGNITO_CLIENT_ID, username=email, access_key='dummy', secret_key='dummy')
+        auth = Cognito(AWS_COGNITO_POOL_ID, AWS_COGNITO_CLIENT_ID, username=email_or_username, access_key='dummy', secret_key='dummy')
     
         try: 
             auth.authenticate(password)
         except auth.client.exceptions.UserNotFoundException:
-            flash("E-mail not found", 'error')
+            flash("User not found. If you haven't verified your account yet, please log in with your username.", 'error')
             return render_template('signin.html', form=form)
         except auth.client.exceptions.NotAuthorizedException:
             flash("E-mail or password is incorrect", 'error')
@@ -110,6 +128,11 @@ def verification():
     auth = Cognito(AWS_COGNITO_POOL_ID, AWS_COGNITO_CLIENT_ID, username=session.get('username'))
 
     form = VerificationForm()
+
+    if request.method == 'POST' and request.form.get('resend') == 'Resend E-Mail':
+        flash ("Check your e-mail for the new verification code.", 'success')
+        auth.client.resend_confirmation_code(ClientId=AWS_COGNITO_CLIENT_ID, Username=session.get('username'))
+        return render_template('verification.html', form=form)
 
     if form.validate_on_submit():
         code = form.code.data
@@ -156,7 +179,13 @@ def register():
         except auth.client.exceptions.UsernameExistsException:
             flash("Username already exists", 'error')
             return render_template('register.html', form=form)
-
+        except auth.client.exceptions.InvalidParameterException:
+            flash("Username cannot be an e-mail", 'error')
+            return render_template('register.html', form=form)
+        except Exception as e:
+            flash("Something went wrong. Double check your parameters and try again.", 'error')
+            return render_template('register.html', form=form)
+        
         session['verify'] = True
         return redirect(url_for('auth_page.verification'))
     else:

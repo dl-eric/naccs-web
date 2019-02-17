@@ -93,13 +93,13 @@ class RegisterForm(FlaskForm):
     submit =    SubmitField()
 
 class VerificationForm(FlaskForm):
-    code    = StringField("Verification Code: ", validators=[DataRequired()])
+    code    = StringField("Verification Code")
     submit  = SubmitField()
 
 class SignInForm(FlaskForm):
-    email       = StringField("E-mail: ", validators=[DataRequired(), Email()])
-    password    = PasswordField("Password: ", validators=[DataRequired()])
-    submit      = SubmitField()
+    email_or_username       = StringField("E-mail or Username: ", validators=[DataRequired()])
+    password                = PasswordField("Password: ", validators=[DataRequired()])
+    submit                  = SubmitField()
 
 class ProfileForm(FlaskForm):
     discord     = StringField(validators=[DataRequired(), discord_validate])
