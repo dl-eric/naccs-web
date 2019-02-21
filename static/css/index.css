@@ -1,3 +1,10 @@
+.twitch {
+    text-align: center;
+    height: 480px;
+    margin: 10px;
+    box-shadow: 0 0 20px #ccc;
+}
+
 .matches {
     max-width: 1200px;
     display: flex;
