@@ -1,0 +1,37 @@
+.matches {
+    max-width: 1200px;
+    display: flex;
+    margin: 5px 0;
+    height: 100%;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 1s;
+}
+
+.match {
+    margin: 10px 10px;
+    border-radius: 2px;
+    padding: 10px 10px;
+    background-color: white;
+    box-shadow: 0px 0px 20px #ccc;
+    width: 300px;
+}
+
+table {
+    font-size: 14px;
+    width: 100%;
+}
+
+.right {
+    text-align: right;
+}
+
+.meta {
+    font-size: 12px;
+    color: #888;
+    padding-bottom: 8px;
+}
+
+.slick-next:before, .slick-prev:before {
+    color: rgb(255, 153, 0)
+}

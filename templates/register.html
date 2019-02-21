@@ -4,66 +4,69 @@
 {% block content %}
     <script src="{{ url_for('static', filename='js/register.js') }}"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/register.css') }}">
-    <div class="main_col">
-        <div class="card">
-            <h1>Register</h1>
+    
+    <div class="content_flex">
+        <div class="main_col">
+            <div class="card">
+                <h1>Register</h1>
 
-            {% with messages = get_flashed_messages(category_filter=["success"]) %}
-            {% if messages %}
-                <ul class="flashes success">
-            {% for message in messages %}
-                <li>{{ message }}</li>
-            {% endfor %}
-                </ul>
-            {% endif %}
-            {% endwith %}
-            
-            {% with messages = get_flashed_messages(category_filter=["error"]) %}
-            {% if messages %}
-                <ul class="flashes error">
-            {% for message in messages %}
-                <li>{{ message }}</li>
-            {% endfor %}
-                </ul>
-            {% endif %}
-            {% endwith %}
+                {% with messages = get_flashed_messages(category_filter=["success"]) %}
+                {% if messages %}
+                    <ul class="flashes success">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+                    </ul>
+                {% endif %}
+                {% endwith %}
+                
+                {% with messages = get_flashed_messages(category_filter=["error"]) %}
+                {% if messages %}
+                    <ul class="flashes error">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+                    </ul>
+                {% endif %}
+                {% endwith %}
 
-            <div class="register">
-                <form action="" method="POST">
-                    {{ form.csrf_token() }}
+                <div class="register">
+                    <form action="" method="POST">
+                        {{ form.csrf_token() }}
 
-                    <div class="register input_group">
-                        <p>{{ form.username.label() }}</p>
-                        <p>{{ form.username }}</p>
-                    </div>
+                        <div class="register input_group">
+                            <p>{{ form.username.label() }}</p>
+                            <p>{{ form.username }}</p>
+                        </div>
 
-                    <div class="register input_group">
-                        <p>{{ form.email.label() }}</p>
-                        <p>{{ form.email }}</p>
-                    </div>
+                        <div class="register input_group">
+                            <p>{{ form.email.label() }}</p>
+                            <p>{{ form.email }}</p>
+                        </div>
 
-                    <div class="register input_group">
-                        <p>{{ form.password.label() }}</p>
-                        <p>{{ form.password }}</p>
-                    </div>
+                        <div class="register input_group">
+                            <p>{{ form.password.label() }}</p>
+                            <p>{{ form.password }}</p>
+                        </div>
 
-                    <div class="register input_group">
-                        <p>{{ form.verify_pass.label() }}</p>
-                        <p>{{ form.verify_pass }}</p>
-                    </div>
+                        <div class="register input_group">
+                            <p>{{ form.verify_pass.label() }}</p>
+                            <p>{{ form.verify_pass }}</p>
+                        </div>
 
-                    <div class="register input_group">
-                        <p>{{ form.discord.label() }}</p>
-                        <p>{{ form.discord }}</p>
-                    </div>
+                        <div class="register input_group">
+                            <p>{{ form.discord.label() }}</p>
+                            <p>{{ form.discord }}</p>
+                        </div>
 
-                    <div class="register input_group">
-                        <p>{{ form.esea.label() }}</p>
-                        <p>{{ form.esea }}</p>
-                    </div>
+                        <div class="register input_group">
+                            <p>{{ form.esea.label() }}</p>
+                            <p>{{ form.esea }}</p>
+                        </div>
 
-                    {{ form.submit }}
-                </form>
+                        {{ form.submit }}
+                    </form>
+                </div>
             </div>
         </div>
     </div>

@@ -5,12 +5,12 @@ body {
 }
 
 #content {
+    margin: 0 auto;
+    max-width: 1200px;
     display: block;
 }
 
-.content_container {
-    margin: 0 auto;
-    max-width: 1200px;
+.content_flex {
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;

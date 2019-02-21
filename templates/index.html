@@ -2,31 +2,64 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-  <div class="main_col">
-    <div class="card">
-      <h1>North American Collegiate Counter-Strike</h1>
-      <p>
-        Welcome to the work in progress NACCS website! In order to have general permissions in our discord, you must have an authenticated and verified email on this website.
-      </p>
-      <p>If you're a college student, sign up today!</p>
-      <p>We're working on getting match pages, queues, and twitch streams on this website.</p>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/slick.css') }}"/>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/slick-theme.css') }}"/>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.css') }}">
 
-      <p>So check back soon for any updates!</p>
-
-      <p>- NACCS</p>
+  <div class="matches">
+    {% for match in matches.matches %}
+    <div class="match">
+      <table>
+        <tr>
+          <td class="meta">{{ match.date }}</td>
+          <td class="meta right">{{ match.map }}</td>
+        </tr>
+        <tr>
+          <td>{{ match.home }}</td>
+          <td class="right">{{ match.home_score }}</td>
+        </tr>
+        <tr>
+          <td>{{ match.away }}</td>
+          <td class="right">{{ match.away_score }}</td>
+        </tr>
+      </table>
     </div>
+    {% endfor %}
   </div>
-  <div class="secondary_col">
-    <div class="card small">
-      <h2>Quick links</h2>
-      <ul>
-        <li>
-          <a href="https://play.esea.net/club/70">ESEA Club</a>
-        </li>
-        <li>
-          <a href="https://discord.gg/6Bkbavq">Discord</a>
-        </li>
-      </ul>
+
+  <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+  <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/slick.min.js') }}"></script>
+
+  <script type="text/javascript" src="{{ url_for('static', filename='js/index.js') }}"></script>
+
+  <div class="content_flex">
+    <div class="main_col">
+      <div class="card">
+        <h1>North American Collegiate Counter-Strike</h1>
+        <p>
+          Welcome to the work in progress NACCS website! In order to have general permissions in our discord, you must have an authenticated and verified email on this website.
+        </p>
+        <p>If you're a college student, sign up today!</p>
+        <p>We're working on getting match pages, queues, and twitch streams on this website.</p>
+
+        <p>So check back soon for any updates!</p>
+
+        <p>- NACCS</p>
+      </div>
+    </div>
+    <div class="secondary_col">
+      <div class="card small">
+        <h2>Quick links</h2>
+        <ul>
+          <li>
+            <a href="https://play.esea.net/club/70">ESEA Club</a>
+          </li>
+          <li>
+            <a href="https://discord.gg/6Bkbavq">Discord</a>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 {% endblock %}
