@@ -2,7 +2,7 @@
 {% block title %}Register{% endblock %}
 
 {% block content %}
-    <script src="{{ url_for('static', filename='js/register.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/input.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/register.css') }}">
     
     <div class="content_flex">
@@ -35,33 +35,51 @@
                         {{ form.csrf_token() }}
 
                         <div class="register input_group">
-                            <p>{{ form.username.label() }}</p>
-                            <p>{{ form.username }}</p>
+                            <label for="inp" class="inp">
+                                {{ form.username }}
+                                <span class="label">{{ form.username.label() }}</span>
+                                <span class="border"></span>
+                            </label>
                         </div>
 
                         <div class="register input_group">
-                            <p>{{ form.email.label() }}</p>
-                            <p>{{ form.email }}</p>
+                            <label for="inp" class="inp">
+                                {{ form.email }}
+                                <span class="label">{{ form.email.label() }}</span>
+                                <span class="border"></span>
+                            </label>
                         </div>
 
                         <div class="register input_group">
-                            <p>{{ form.password.label() }}</p>
-                            <p>{{ form.password }}</p>
+                            <label for="inp" class="inp">
+                                {{ form.password }}
+                                <span class="label">{{ form.password.label() }}</span>
+                                <span class="border"></span>
+                            </label>
                         </div>
 
                         <div class="register input_group">
-                            <p>{{ form.verify_pass.label() }}</p>
-                            <p>{{ form.verify_pass }}</p>
+                            <label for="inp" class="inp">
+                                {{ form.verify_pass }}
+                                <span class="label">{{ form.verify_pass.label() }}</span>
+                                <span class="border"></span>
+                            </label>
                         </div>
 
                         <div class="register input_group">
-                            <p>{{ form.discord.label() }}</p>
-                            <p>{{ form.discord }}</p>
+                            <label for="inp" class="inp">
+                                {{ form.discord }}
+                                <span class="label">{{ form.discord.label() }}</span>
+                                <span class="border"></span>
+                            </label>
                         </div>
 
                         <div class="register input_group">
-                            <p>{{ form.esea.label() }}</p>
-                            <p>{{ form.esea }}</p>
+                            <label for="inp" class="inp">
+                                {{ form.esea }}
+                                <span class="label">{{ form.esea.label() }}</span>
+                                <span class="border"></span>
+                            </label>
                         </div>
 
                         {{ form.submit }}

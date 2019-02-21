@@ -4,6 +4,10 @@ body {
     background-color: rgb(244, 244, 244);
 }
 
+form {
+    text-align: center;
+}
+
 #content {
     margin: 0 auto;
     max-width: 1200px;
@@ -33,26 +37,28 @@ body {
     padding: 30px;
 }
 
-input {
-    width: 250px;
-    border: 1px solid #eee;
+#submit {
+    width: 300px;
+    border: 1px solid #5D79AE;
     border-radius: 5px;
-    background-color: #eee;
+    background-color: #fff;
     padding: 10px;
     transition: box-shadow 0.1s;
 }
 
-input:focus {
+#submit:focus {
     border-radius: 5px;
 }
 
-input:hover {    
+#submit:hover {    
     box-shadow: 0 0px 10px #bbb;
 }
 
-input:disabled {
+#submit:disabled {
     cursor: default;
     box-shadow: none;
+    border: 1px solid #eee;
+    background-color: #eee;
 }
 
 #submit {

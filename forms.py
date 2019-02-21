@@ -84,12 +84,12 @@ def discord_validate(form, field):
     return _validate(form, field)
 
 class RegisterForm(FlaskForm):
-    username =  StringField("Username: ", validators=[DataRequired()], render_kw={"placeholder": "Username"})
-    email =     StringField("Email: ", validators=[DataRequired(), Email(), email_validate], render_kw={"placeholder": "College E-Mail"})
-    password =  PasswordField("Password: ", validators=[DataRequired(), password_validate], render_kw={"placeholder": "Password"})
-    verify_pass = PasswordField("Confirm: ", validators=[EqualTo('password', message="Passwords must match")], render_kw={"placeholder": "Confirm Password"})
-    discord =   StringField("Discord: ", validators=[DataRequired(), discord_validate], render_kw={"placeholder": "name#0000"})
-    esea =      StringField("ESEA: ", validators=[DataRequired(), esea_validate], render_kw={"placeholder": "https://play.esea.net/users/######"})
+    username =  StringField("Username", validators=[DataRequired()], render_kw={'class': 'input', 'placeholder': ' '})
+    email =     StringField("Email", validators=[DataRequired(), Email(), email_validate], render_kw={'class': 'input', 'placeholder': ' '})
+    password =  PasswordField("Password", validators=[DataRequired(), password_validate], render_kw={'class': 'input', 'placeholder': ' '})
+    verify_pass = PasswordField("Confirm Password", validators=[EqualTo('password', message="Passwords must match")], render_kw={'class': 'input', 'placeholder': ' '})
+    discord =   StringField("Discord", validators=[DataRequired(), discord_validate], render_kw={'class': 'input', 'placeholder': ' '})
+    esea =      StringField("ESEA Profile", validators=[DataRequired(), esea_validate], render_kw={'class': 'input', 'placeholder': ' '})
     submit =    SubmitField()
 
 class VerificationForm(FlaskForm):
@@ -97,8 +97,8 @@ class VerificationForm(FlaskForm):
     submit  = SubmitField()
 
 class SignInForm(FlaskForm):
-    email_or_username       = StringField("E-mail or Username: ", validators=[DataRequired()])
-    password                = PasswordField("Password: ", validators=[DataRequired()])
+    email_or_username       = StringField("E-mail or Username", validators=[DataRequired()], render_kw={'class': 'input', 'placeholder': ' '})
+    password                = PasswordField("Password", validators=[DataRequired()], render_kw={'class': 'input', 'placeholder': ' '})
     submit                  = SubmitField()
 
 class ProfileForm(FlaskForm):

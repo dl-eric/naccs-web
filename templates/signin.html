@@ -2,6 +2,8 @@
 {% block title %}Sign In{% endblock %}
 
 {% block content %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/input.css') }}">
+
     <div class="content_flex">
         <div class="main_col">
             <div class="card">
@@ -30,10 +32,21 @@
                 <form action="" method="POST">
                     {{ form.csrf_token() }}
 
-                    {% for field in form if field.name != "csrf_token" %}
-                        <p>{{ field.label() }}</p>
-                        <p>{{ field }}</p>
-                    {% endfor %}
+                    <label for="inp" class="inp">
+                        {{ form.email_or_username }}
+                        <span class="label">{{ form.email_or_username.label() }}</span>
+                        <span class="border"></span>
+                    </label>
+
+                    <label for="inp" class="inp">
+                        {{ form.password }}
+                        <span class="label">{{ form.password.label() }}</span>
+                        <span class="border"></span>
+                    </label>
+
+                    <label for="inp" class="inp">
+                        {{ form.submit }}
+                    </label>
                 </form>
             </div>
         </div>
