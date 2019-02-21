@@ -13,7 +13,6 @@ def index():
         "User-Agent": request.headers.get('User-Agent'),
         "Referer": request.url
     }
-    print(headers)
 
     scraper = Matches(headers)
 
