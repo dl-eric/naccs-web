@@ -52,10 +52,16 @@ def user():
     form = ProfileForm()
 
     # Renew tokens if expired
-    if auth.check_token():
-        session['id_token']         = auth.id_token
-        session['refresh_token']    = auth.refresh_token
-        session['access_token']     = auth.access_token
+    try:
+        # Renew = Flase because I don't think the library one works.
+        if auth.check_token(renew=False):
+            auth_params = {'REFRESH_TOKEN': refresh_token}
+            response = auth.client.initiate_auth(ClientId=AWS_COGNITO_CLIENT_ID, AuthFlow='REFRESH_TOKEN', AuthParameters=auth_params)
+            session['id_token']         = response['AuthenticationResult']['IdToken']
+            session['access_token']     = response['AuthenticationResult']['AccessToken']
+    except Exception as e:
+        # Something went wrong. Log out the user.
+        return redirect(url_for('auth_page.signout'))
     
     if form.validate_on_submit():
         discord = form.discord.data 
