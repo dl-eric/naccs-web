@@ -1,7 +1,7 @@
 .matches {
     max-width: 1200px;
     display: flex;
-    margin: 5px 0;
+    margin: 5px 32px;
     height: 100%;
     visibility: hidden;
     opacity: 0;
@@ -15,6 +15,7 @@
     background-color: white;
     box-shadow: 0px 0px 20px #ccc;
     width: 300px;
+    z-index: 1;
 }
 
 table {
