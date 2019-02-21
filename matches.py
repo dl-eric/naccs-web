@@ -36,11 +36,11 @@ class Matches:
 
             # Find home team
             home_team_name = self._get_team_name(match, 'home')
-            json_match['home'] = home_team_name
+            json_match['home'] = 'Team ' + home_team_name
 
             # Find away team
             away_team_name = self._get_team_name(match, 'away')
-            json_match['away'] = away_team_name
+            json_match['away'] = 'Team ' + away_team_name
             
             json_match['score'] = match.find('td', attrs={'class': 'score'}).text
             json_match['home_score'] = json_match['score'].split('-')[0]

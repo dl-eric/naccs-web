@@ -49,17 +49,19 @@
       </div>
     </div>
     <div class="secondary_col">
-      <div class="card small">
-        <h2>Quick links</h2>
-        <ul>
-          <li>
-            <a href="https://play.esea.net/club/70">ESEA Club</a>
-          </li>
-          <li>
-            <a href="https://discord.gg/6Bkbavq">Discord</a>
-          </li>
-        </ul>
-      </div>
+      <a target="_blank" class="button esea" href="https://play.esea.net/club/70">ESEA Club</a>
+      <a target="_blank" class="button discord" href="https://discord.gg/6Bkbavq">Discord</a>
+      
+      <div id="curator-feed"><a href="https://curator.io" target="_blank" class="crt-logo crt-tag">Powered by Curator.io</a></div>
+
+      <script type="text/javascript">
+      /* curator-feed */
+      (function(){
+      var i, e, d = document, s = "script";i = d.createElement("script");i.async = 1;
+      i.src = "https://cdn.curator.io/published/f280553e-bf05-4a4d-a659-c577f4ef61c1.js";
+      e = d.getElementsByTagName(s)[0];e.parentNode.insertBefore(i, e);
+      })();
+      </script>
     </div>
   </div>
 {% endblock %}

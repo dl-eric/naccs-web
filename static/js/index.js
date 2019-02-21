@@ -1,28 +1,22 @@
 $(document).ready(function(){
     $('.matches').slick({
       infinite: false,
-      slidesToShow: 5,
+      slidesToShow: 4,
       responsive: [
         {
-            breakpoint: 1200,
+            breakpoint: 1000,
             settings: {
-                slidesToShow: 4,
+                slidesToShow: 3,
             }
         },
         {
-          breakpoint: 900,
-          settings: {
-            slidesToShow: 3,
-          }
-        },
-        {
-          breakpoint: 700,
+          breakpoint: 820,
           settings: {
             slidesToShow: 2,
           }
         },
         {
-            breakpoint: 480,
+            breakpoint: 600,
             settings: {
                 slidesToShow: 1,
             }
