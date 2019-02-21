@@ -1,10 +1,8 @@
 form {
     display: grid;
+    box-sizing: border-box;
 }
 
-* {
-  box-sizing: border-box;
-}
 .inp {
   position: relative;
   margin: 10px;
@@ -13,7 +11,7 @@ form {
 }
 .inp .label {
   position: absolute;
-  top: 16px;
+  top: 12px;
   left: 0;
   font-size: 16px;
   color: #9098a9;
@@ -33,11 +31,12 @@ form {
   transition: all 0.15s ease;
 }
 .inp .input {
+  box-sizing: border-box;
   -webkit-appearance: none;
   width: 100%;
   border: 0;
   font-family: inherit;
-  padding: 12px 0;
+  padding: 12px 0 8px 12px;
   height: 48px;
   font-size: 16px;
   font-weight: 500;
@@ -64,6 +63,10 @@ form {
 }
 .inp .input:focus + span + .border {
   transform: scaleX(1);
+}
+
+.input:disabled {
+  background-color: #eee;
 }
 
 #submit {

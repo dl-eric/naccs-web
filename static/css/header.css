@@ -10,7 +10,7 @@
 
 .header_logo__image {
     padding: 20px;
-    height: 160px;
+    height: 140px;
 }
 
 .header_menu {
@@ -44,7 +44,7 @@
 }
 
 .header_menu__container a:hover {
-    box-shadow: inset 0 -5px 0 #fff;
+    box-shadow: inset 0 -5px 0 #07f;
 }
 
 .header_menu__tabs-left {

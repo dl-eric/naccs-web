@@ -2,6 +2,7 @@
 {% block title %}User{% endblock %}
 
 {% block content %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/input.css') }}">
   <div class="card center">
     <h1>User Page</h1>
 
@@ -27,17 +28,30 @@
 
     <form action="" method="POST">
       {{ form.csrf_token() }}
-      <p>Username</p>
-      <p></p><input disabled value="{{ user['username'] }}"></p>
+      
+      <label for="inp" class="inp">
+          <input disabled class="input" value="{{ user['username'] }}">
+          <span class="label">Username</span>
+          <span class="border"></span>
+      </label>
 
-      <p>E-mail</p>
-      <p><input disabled value="{{ user['email'] }}"></p>
+      <label for="inp" class="inp">
+          <input disabled class="input" value="{{ user['email'] }}">
+          <span class="label">Email</span>
+          <span class="border"></span>
+      </label>
 
-      <p>Discord</p>
-      <p>{{ form.discord }}</p>
+      <label for="inp" class="inp">
+          {{ form.discord }}
+          <span class="label">Discord</span>
+          <span class="border"></span>
+      </label>
 
-      <p>ESEA Profile Link</p>
-      <p><input disabled value="{{ user['esea'] }}"></p>
+      <label for="inp" class="inp">
+          <input disabled class="input" value="{{ user['esea'] }}">
+          <span class="label">ESEA Profile</span>
+          <span class="border"></span>
+      </label>
 
       <p>{{ form.submit }}</p>
     </form>
