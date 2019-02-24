@@ -2,13 +2,24 @@ from flask import Flask, render_template, session, request
 from auth import auth_page
 import os
 from matches import Matches
+from db import db, School
+
+db_user       = os.environ.get('DB_USER')
+db_password   = os.environ.get('DB_PASSWORD')
+db_db         = os.environ.get('DB_DB')
+db_host       = os.environ.get('DB_HOST')
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('FLASK_SECRET_KEY')
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://{0}:{1}@{2}/{3}'.format(db_user, db_password, db_host, db_db)
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.register_blueprint(auth_page)
+
+db.init_app(app)
 
 @app.route('/')
 def index():
+    
     headers = {
         "User-Agent": request.headers.get('User-Agent'),
         "Referer": request.url
