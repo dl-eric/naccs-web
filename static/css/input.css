@@ -49,7 +49,7 @@ form {
 .inp .input:hover {
   background: rgba(34,50,84,0.03);
 }
-.inp .input:not(:placeholder-shown) + span {
+.inp .input:not(:placeholder-shown):-webkit-autofill + span, .inp .input:not(:placeholder-shown) + span {
   color: #5a667f;
   transform: translateY(-26px) scale(0.75);
 }
