@@ -25,6 +25,7 @@ def is_email(input):
         
         if not is_edu and not is_ca:
             return False
+        return True
     return _validate(input)
 
 def flash_errors(form):
@@ -98,13 +99,17 @@ def signin():
         try: 
             auth.authenticate(password)
         except auth.client.exceptions.UserNotFoundException:
-            flash("User not found. If you haven't verified your account yet, please log in with your username.", 'error')
+            if is_email(email_or_username):
+                flash("User not found. If you haven't verified your account yet, please log in with your username.", 'error')
+            else: 
+                flash("User not found.", 'error')
             return render_template('signin.html', form=form)
         except auth.client.exceptions.NotAuthorizedException:
             flash("E-mail or password is incorrect", 'error')
             return render_template('signin.html', form=form)
         except auth.client.exceptions.UserNotConfirmedException:
             session['verify'] = True
+            session['username'] = email_or_username
             return redirect(url_for('auth_page.verification'))
         
         user = auth.client.get_user(AccessToken=auth.access_token)
