@@ -112,6 +112,7 @@ def signin():
         session['access_token'] = auth.access_token
         session['id_token'] = auth.id_token
         session['refresh_token'] = auth.refresh_token
+        session.permanent = True # 31 days until cookie expires
         return redirect(url_for('index'))
     else:
         flash_errors(form)
@@ -143,7 +144,7 @@ def verification():
     if form.validate_on_submit():
         code = form.code.data
         try:
-            auth.confirm_sign_up(code, username=session.get('username', None))
+            auth.confirm_sign_up(code, username=session.get('username'))
         except auth.client.exceptions.CodeMismatchException:
             flash("Invalid or expired Code", 'error')
             return render_template('verification.html', form=form)
