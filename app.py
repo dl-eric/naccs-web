@@ -5,7 +5,7 @@ from matches import Matches
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('FLASK_SECRET_KEY')
-app.config['SERVER_NAME'] = 'collegiatecounterstrike.com'
+#app.config['SERVER_NAME'] = 'collegiatecounterstrike.com'
 app.register_blueprint(auth_page)
 
 @app.route('/')
