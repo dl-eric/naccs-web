@@ -6,7 +6,7 @@
 
     <div class="content_flex">
         <div class="main_col">
-            <div class="card">
+            <div class="card text-center">
                 <h1>Sign In Page</h1>
 
                 {% with messages = get_flashed_messages(category_filter=["success"]) %}
@@ -29,25 +29,27 @@
                 {% endif %}
                 {% endwith %}
 
-                <form action="" method="POST">
-                    {{ form.csrf_token() }}
+                <div class="flex-container">
+                    <form action="" method="POST">
+                        {{ form.csrf_token() }}
 
-                    <label for="inp" class="inp">
-                        {{ form.email_or_username }}
-                        <span class="label">{{ form.email_or_username.label() }}</span>
-                        <span class="border"></span>
-                    </label>
+                        <label for="inp" class="inp">
+                            {{ form.email_or_username }}
+                            <span class="label">{{ form.email_or_username.label() }}</span>
+                            <span class="border"></span>
+                        </label>
 
-                    <label for="inp" class="inp">
-                        {{ form.password }}
-                        <span class="label">{{ form.password.label() }}</span>
-                        <span class="border"></span>
-                    </label>
+                        <label for="inp" class="inp">
+                            {{ form.password }}
+                            <span class="label">{{ form.password.label() }}</span>
+                            <span class="border"></span>
+                        </label>
 
-                    <label for="inp" class="inp">
-                        {{ form.submit }}
-                    </label>
-                </form>
+                        <label for="inp" class="inp">
+                            {{ form.submit }}
+                        </label>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

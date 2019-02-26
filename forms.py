@@ -90,16 +90,16 @@ class RegisterForm(FlaskForm):
     verify_pass = PasswordField("Confirm Password", validators=[EqualTo('password', message="Passwords must match")], render_kw={'class': 'input', 'placeholder': ' '})
     discord =   StringField("Discord", validators=[DataRequired(), discord_validate], render_kw={'class': 'input', 'placeholder': ' '})
     esea =      StringField("ESEA Profile", validators=[DataRequired(), esea_validate], render_kw={'class': 'input', 'placeholder': ' '})
-    submit =    SubmitField()
+    submit =    SubmitField("Register")
 
 class VerificationForm(FlaskForm):
-    code    = StringField("Verification Code")
-    submit  = SubmitField()
+    code    = StringField("Verification Code", render_kw={'class': 'input', 'placeholder': ' '})
+    submit  = SubmitField("Verify")
 
 class SignInForm(FlaskForm):
     email_or_username       = StringField("E-mail or Username", validators=[DataRequired()], render_kw={'class': 'input', 'placeholder': ' '})
     password                = PasswordField("Password", validators=[DataRequired()], render_kw={'class': 'input', 'placeholder': ' '})
-    submit                  = SubmitField()
+    submit                  = SubmitField("Sign In")
 
 class ProfileForm(FlaskForm):
     discord     = StringField(validators=[DataRequired(), discord_validate], render_kw={'class': 'input', 'placeholder': ' '})

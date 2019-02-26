@@ -8,6 +8,17 @@ form {
     text-align: center;
 }
 
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    flex-direction: row;
+}
+
+.text-center {
+    text-align: center !important;
+}
+
 #content {
     margin: 0 auto;
     max-width: 1200px;
@@ -72,11 +83,11 @@ form {
 }
 
 .error {
-    border-left: red solid 6px;
-    background-color: pink;
+    border: red solid 2px;
+    background-color: #ffeef1;
 }
 
 .success {
-    border-left: green solid 6px;
-    background-color: greenyellow;
+    border: green solid 4px;
+    background-color: rgb(218, 255, 163);
 }

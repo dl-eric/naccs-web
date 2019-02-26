@@ -144,7 +144,8 @@ def verification():
     if request.method == 'POST' and request.form.get('resend') == 'Resend E-Mail':
         flash ("Check your e-mail for the new verification code.", 'success')
         auth.client.resend_confirmation_code(ClientId=AWS_COGNITO_CLIENT_ID, Username=session.get('username'))
-        return render_template('verification.html', form=form)
+        session['re-sent'] = True
+        return render_template('verification.html', form=form, resent=session.get('re-sent', False))
 
     if form.validate_on_submit():
         code = form.code.data
@@ -161,9 +162,10 @@ def verification():
             return render_template('verification.html', form=form)
 
         session.pop('verify', None)
+        session.pop('re-sent', None)
         flash("You've been verified!", 'success')
         return redirect(url_for('auth_page.signin'))
-    return render_template('verification.html', form=form)
+    return render_template('verification.html', form=form, resent=session.get('re-sent', False))
 
 @auth_page.route('/register', methods=['post', 'get'])
 def register():

@@ -2,40 +2,53 @@
 {% block title %}Verification{% endblock %}
 
 {% block content %}
-    <div class="card">
-        <h1>Verify</h1>
-        
-        {% with messages = get_flashed_messages(category_filter=["success"]) %}
-        {% if messages %}
-            <ul class="flashes success">
-        {% for message in messages %}
-            <li>{{ message }}</li>
-        {% endfor %}
-            </ul>
-        {% endif %}
-        {% endwith %}
-        
-        {% with messages = get_flashed_messages(category_filter=["error"]) %}
-        {% if messages %}
-            <ul class="flashes error">
-        {% for message in messages %}
-            <li>{{ message }}</li>
-        {% endfor %}
-            </ul>
-        {% endif %}
-        {% endwith %}
-    
-        <p>We've sent you an e-mail. Please enter the verification code below.</p>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/input.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/verification.css') }}">
 
+<div class="card text-center">
+    <h1>Verify</h1>
+    
+    {% with messages = get_flashed_messages(category_filter=["success"]) %}
+    {% if messages %}
+        <ul class="flashes success">
+    {% for message in messages %}
+        <li>{{ message }}</li>
+    {% endfor %}
+        </ul>
+    {% endif %}
+    {% endwith %}
+    
+    {% with messages = get_flashed_messages(category_filter=["error"]) %}
+    {% if messages %}
+        <ul class="flashes error">
+    {% for message in messages %}
+        <li>{{ message }}</li>
+    {% endfor %}
+        </ul>
+    {% endif %}
+    {% endwith %}
+
+    <p>We've sent you an e-mail. Please enter the verification code below.</p>
+
+    <div class="flex-container">
         <form action="" method="POST">
             {{ form.csrf_token() }}
 
-            <p>{{ form.code.label() }}</p>
-            <p>{{ form.code }} <input type="submit" name="resend" value="Resend E-Mail"></p>
-
-            <p>
-            {{ form.submit }}
-            </p>
+            <label for="inp" class="inp">
+                {{ form.code }}
+                <span class="label">{{ form.code.label() }}</span>
+                <span class="border"></span>
+            </label>
+            {% if not resent %}
+            <label for="inp" class="inp">
+                <input id="resend" type="submit" name="resend" value="Resend E-Mail">
+            </label>
+            {% endif %}
+        
+            <label for="inp" class="inp">
+                {{ form.submit }}
+            </label>
         </form>
     </div>
+</div>
 {% endblock %}
