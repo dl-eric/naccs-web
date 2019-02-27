@@ -1,11 +1,13 @@
 from flask import Flask, render_template, session, request
 from auth import auth_page
+from news import news_page
 import os
 from matches import Matches
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('FLASK_SECRET_KEY')
 app.register_blueprint(auth_page)
+app.register_blueprint(news_page)
 
 @app.errorhandler(404)
 def page_not_found(e):
