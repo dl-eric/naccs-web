@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}News{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/news.css') }}">
+
+{% if author %}<button class="delete_post">DELETE</button>{% endif %}
+
+<div class="container">
+
+<article>
+    <img class="news-banner" src="{{ article['image_path'] }}">
+    <div class="article-container">
+        <h1>
+            {{ article['title'] }}
+        </h1>
+        <span class="author">By {{ article['author'] }}</span><span class="news-seperator"></span><span class="date">{{ article['date'].strftime('%B %d, %Y') }}</span> 
+        
+        <p class="news-summary">
+            {{ article['content'] }}
+        </p>
+    </div>
+</article>
+
+</div>
+{% endblock %}
