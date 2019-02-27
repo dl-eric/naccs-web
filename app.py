@@ -5,8 +5,11 @@ from matches import Matches
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('FLASK_SECRET_KEY')
-#app.config['SERVER_NAME'] = 'collegiatecounterstrike.com'
 app.register_blueprint(auth_page)
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html', username=session.get('username')), 404
 
 @app.route('/')
 def index():

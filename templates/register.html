@@ -8,7 +8,7 @@
     <div class="content_flex">
         <div class="main_col">
             <div class="card text-center">
-                <h1>Register</h1>
+                <h1>Join Collegiate CS:GO Today</h1>
 
                 {% with messages = get_flashed_messages(category_filter=["success"]) %}
                 {% if messages %}
@@ -82,7 +82,11 @@
                             </label>
                         </div>
 
-                        {{ form.submit }}
+                        <br>
+                        
+                        <label for="inp" class="inp">
+                            {{ form.submit }}
+                        </label>
                     </form>
                 </div>
             </div>
