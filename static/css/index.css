@@ -17,7 +17,7 @@
 
 .match {
     margin: 10px 10px;
-    border-radius: 2px;
+    border: 2px solid #ddd;
     padding: 10px 10px;
     background-color: white;
     box-shadow: 0px 0px 20px #222;
@@ -48,9 +48,9 @@ table {
     display: block;
     font-weight: bold;
     font-size: 16px;
-    margin: 10px;
+    margin: 12px 13px 12px 13px;
+    border-radius: 4px;
     box-shadow: 0px 0px 20px #222;
-    border-radius: 5px;
     padding: 14px 0;
     color: white;
     text-align: center;
