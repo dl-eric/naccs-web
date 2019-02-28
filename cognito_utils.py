@@ -68,13 +68,13 @@ def get_users_from_list(listname, attr_map=None):
     response = boto3_client.list_users_in_group(**kwargs)
 
     user_list = response.get("Users")
-    page_token = response.get("PaginationToken")
+    page_token = response.get("NextToken")
 
     while page_token:
-        kwargs['PaginationToken'] = page_token
+        kwargs['NextToken'] = page_token
         response = boto3_client.list_users_in_group(**kwargs)
         user_list.extend(response.get("Users"))
-        page_token = response.get("PaginationToken")
+        page_token = response.get("NextToken")
     
     return [UserObj(user.get('Username'),
                                 attribute_list=user.get('Attributes'),
