@@ -1,4 +1,4 @@
-article {
+article, .create-card {
     margin: 20px 0;
     background-color: white;
     border: 2px solid #ddd;
@@ -43,4 +43,29 @@ a:hover {
 .container {
     margin: 0 auto;
     max-width: 800px;
+}
+
+.create-title {
+
+}
+
+.create-author {
+
+}
+
+.create-content {
+}
+
+.create-content > textarea {
+    height: 400px;
+    resize: none;
+}
+
+.create-summary > textarea {
+    height: 200px;
+    resize: none;
+}
+
+.create-image {
+    
 }

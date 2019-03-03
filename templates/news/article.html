@@ -4,7 +4,11 @@
 {% block content %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/news.css') }}">
 
-{% if author %}<button class="delete_post">DELETE</button>{% endif %}
+{% if author %}
+<form action='{{ url_for('news.delete', id=article['id']) }}' method="post">
+    <button class="delete_post">DELETE</button>
+</form>
+{% endif %}
 
 <div class="container">
 
