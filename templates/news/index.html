@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}News{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/news.css') }}">
+
+{% if author %}<a class="new_post" href="{{ url_for('news.create') }}">New Article</a>{% endif %}
+
+<div class="container">
+
+{% for article in articles %}
+    <article>
+        <img class="news-banner" src="{{ article['image_path'] }}">
+        <div class="article-container">
+            <h1 class="center">
+                {{ article['title'] }}
+            </h1>
+            <p class="news-summary">
+                {{ article['summary'] }}
+            </p>
+            <a href="/news/{{ article['id'] }}">Read More</a>
+        </div>
+    </article>
+{% endfor %}
+
+</div>
+{% endblock %}

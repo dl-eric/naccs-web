@@ -1,14 +1,87 @@
 #footer {
-    background-color: rgb(39, 39, 39);
+    margin-top: 20px;
+    background-color: rgb(32, 32, 38);
     height: 200px;
-    color: white;
-    margin: 30px auto 0 auto;
-    width: 100%;
+    text-align: center;
+    padding: 20px;
+    font-family: 'Jockey One', sans-serif;
 }
 
-.footer__container {
-    padding: 48px 0;
-    text-align: center;
-    margin: 0 auto;
-    max-width: 1200px;
+.social_container {
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+.social_container > a {
+    color: white;
+    vertical-align: middle;
+    margin: 12px;
+    cursor: pointer;
+}
+.social_container > a:hover{
+    color: #ff850a;
+}
+
+.fa-discord {
+    font-size: 24px;
+}
+.fa-envelope {
+    font-size: 24px;
+}
+.fa-twitter {
+    font-size: 24px;
+}
+.fa-steam {
+    font-size: 24px;
+}
+.fa-twitch {
+    font-size: 24px;
+}
+
+.mailing_list_header {
+    letter-spacing: 1px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.mailing_list_form {
+    display: flex;
+    justify-content: center;
+}
+
+.mailing_list_form form {
+    display: block;
+}
+
+.mailing_input {
+    width: 180px;
+    padding: 12px;
+    border: none;
+    letter-spacing: 1px;
+    font-family: 'Jockey One', sans-serif;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.mailing_input::placeholder {
+    letter-spacing: 1px;
+    font-family: 'Jockey One', sans-serif;
+    font-size: 12px;
+}
+
+.mailing_button {
+    color: white;
+    margin-left: 5px;
+    background-color: #ff850a;
+    padding: 10px;
+    display: inline-block;
+    border: none;
+    font-family: 'Jockey One', sans-serif;
+    font-size: 14px;
+    letter-spacing: 1px;
+    cursor: pointer;
+}
+.mailing_button:hover {
+    background-color:#E98069;
 }

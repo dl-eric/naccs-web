@@ -2,28 +2,36 @@
 <html>
   <head>
     {% block head %}
+    <link rel="icon" type="image/png" href="{{ url_for ('static', filename='favicon-32x32.png') }}" sizes="32x32" />
+    <link rel="icon" type="image/png" href="{{ url_for ('static', filename='favicon-16x16.png') }}" sizes="16x16" />
+    
+    <link href="https://fonts.googleapis.com/css?family=Jockey+One" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
     <title>{% block title %}{% endblock %} - NACCS</title>
 
     <div id="header">
-      <div class="header_menu">
-        <div class="header_menu__container">
-          <ul>
-            <li class="header_menu__tabs-left"><a href="/">Home</a></li>
-            {% if session['access_token'] is defined %}
-            <li class="header_menu__tabs-right"><a href="/signout">Sign Out</a></li>
-            <li class="header_menu__tabs-right"><a href="/user">{{ username }}</a></li>
-            {% else %}
-            <li class="header_menu__tabs-right"><a href="/register">Register</a></li>
-            <li class="header_menu__tabs-right"><a href="/signin">Sign In</a></li>
-            {% endif %}
-          </ul>
-        </div>
-      </div>
-      <div class="header_logo__container">
-        <a href="/"><img class="header_logo__image"
-            src="{{ url_for('static', filename='assets/headerbanner_wide.png') }}"/></a>
+        <div class="header__container">
+        <a href='/'>
+          <img class="header__logo" src="{{ url_for('static', filename='assets/headerlogo_small.png') }}">
+        </a>
+        <a href='/'>
+          <span class="header__title">NACCS</span>
+        </a>
+
+        <span class="header__tabs">
+          <a href='/news'>NEWS</a>
+          <a href='/schools'>SCHOOLS</a>
+          <a href='/partners'>PARTNERS</a>
+          <span class="seperator"></span>
+          {% if session['access_token'] is defined %}
+          <a href="/user">{{ username }}</a>
+          <a href="/signout">Sign Out</a>
+          {% else %}
+          <a href="/signin">Sign In</a>
+          <a href="/register">Register</a>
+          {% endif %}
+        </span>
       </div>
     </div>
 
@@ -37,8 +45,29 @@
   <footer>
     <div id="footer">
       {% block footer %}
-      <div class="footer__container">
-        &copy; Copyright 2019 NACCS.
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+      <div class="social_container">
+          <a href="mailto:staff@collegiatecounterstrike.com" target="_blank"><i class="fas fa-envelope"></i></a>
+          <a href="https://twitter.com/naccsgg" target="_blank"><i class="fab fa-twitter"></i></a>
+          <a href="https://steamcommunity.com/groups/NACCS_" target="_blank"><i class="fab fa-steam"></i></a>
+          <a href="https://discord.gg/6Bkbavq" target="_blank"><i class="fab fa-discord"></i></a>
+          <a href="https://www.twitch.tv/naccs_tv" target="_blank"><i class="fab fa-twitch"></i></a>
+      </div>
+      <div class="mailing_list_header">
+          JOIN OUR MAILING LIST!
+      </div>
+      <div class="mailing_list_form">
+          <form action="https://collegiatecounterstrike.us20.list-manage.com/subscribe/post?u=9130d4a829c4e581d2500c03a&amp;id=07b709535e" method="post" target="_blank" novalidate>
+          <!-- input -->
+          <input class="mailing_input" name="EMAIL" type="email" placeholder="EMAIL ADDRESS" required>
+          
+          <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+          <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_9130d4a829c4e581d2500c03a_07b709535e" tabindex="-1" value=""></div>
+          
+          <!-- button -->
+          <input class="mailing_button" type="submit" value="SIGN UP">
+          </form>
       </div>
       {% endblock %}
     </div>

@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
+from flask_wtf.file import FileField, FileAllowed, FileRequired
 from wtforms import StringField, SubmitField, PasswordField
-from wtforms.validators import DataRequired, Email, ValidationError, EqualTo
+from wtforms.validators import DataRequired, Email, ValidationError, EqualTo, Length
 
 def esea_validate(form, field):
     mesg = "Enter a valid ESEA page URL"
@@ -104,3 +105,10 @@ class SignInForm(FlaskForm):
 class ProfileForm(FlaskForm):
     discord     = StringField(validators=[DataRequired(), discord_validate], render_kw={'class': 'input', 'placeholder': ' '})
     submit      = SubmitField("Change Profile")
+
+class ArticleForm(FlaskForm):
+    title   = StringField("Title", validators=[DataRequired(), Length(200)])
+    author  = StringField("Author", validators=[DataRequired(), Length(50)])
+    content = StringField("Content", validators=[DataRequired()])
+    summary = StringField("Summary", validators=[DataRequired()])
+    image   = FileField('image', validators=[FileRequired(), FileAllowed(['.png', '.jpg'], 'Images only!')])
