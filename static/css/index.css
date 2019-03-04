@@ -2,7 +2,7 @@
     text-align: center;
     height: 480px;
     margin: 10px;
-    box-shadow: 0 0 20px #ccc;
+    box-shadow: 0 0 20px #222;
 }
 
 .matches {
@@ -17,10 +17,10 @@
 
 .match {
     margin: 10px 10px;
-    border-radius: 2px;
+    border: 2px solid #ddd;
     padding: 10px 10px;
     background-color: white;
-    box-shadow: 0px 0px 20px #ccc;
+    box-shadow: 0px 0px 20px #222;
     width: 300px;
     z-index: 1;
 }
@@ -41,16 +41,16 @@ table {
 }
 
 .slick-next:before, .slick-prev:before {
-    color: rgb(255, 153, 0)
+    color: #ff850a;
 }
 
 .button {
     display: block;
     font-weight: bold;
     font-size: 16px;
-    margin: 10px;
-    box-shadow: 0px 0px 20px #ccc;
-    border-radius: 5px;
+    margin: 12px 13px 12px 13px;
+    border-radius: 4px;
+    box-shadow: 0px 0px 20px #222;
     padding: 14px 0;
     color: white;
     text-align: center;
@@ -62,7 +62,7 @@ table {
 }
 
 .discord {
-    background-color: #26262B;
+    background-color: #7289DA;
 }
 
 .discord a {

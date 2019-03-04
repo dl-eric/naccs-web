@@ -1,16 +1,28 @@
 import os
+import functools
 from flask import Blueprint, render_template, request, redirect, url_for, session, flash
 from warrant import Cognito
 from warrant.aws_srp import AWSSRP
 from forms import RegisterForm, VerificationForm, SignInForm, ProfileForm, email_validate
 import boto3
 
-AWS_COGNITO_POOL_ID = os.environ.get('AWS_COGNITO_POOL_ID')
-AWS_COGNITO_CLIENT_ID = os.environ.get('AWS_COGNITO_CLIENT_ID')
-AWS_IAM_ACCESS_KEY = os.environ.get('AWS_IAM_ACCESS_KEY')
-AWS_IAM_SECRET_KEY = os.environ.get('AWS_IAM_SECRET_KEY')
+AWS_COGNITO_POOL_ID     = os.environ.get('AWS_COGNITO_POOL_ID')
+AWS_COGNITO_CLIENT_ID   = os.environ.get('AWS_COGNITO_CLIENT_ID')
+AWS_IAM_ACCESS_KEY      = os.environ.get('AWS_IAM_ACCESS_KEY')
+AWS_IAM_SECRET_KEY      = os.environ.get('AWS_IAM_SECRET_KEY')
 
 auth_page = Blueprint('auth_page', __name__, template_folder='templates')
+
+def login_required(view):
+    @functools.wraps(view)
+    def wrapped_view(**kwargs):
+        # TODO: We should be doing check_token for this routine
+        if 'access_token' not in session:
+            return redirect(url_for('auth_page.signin'))
+
+        return view(**kwargs)
+
+    return wrapped_view
 
 def is_email(input):
     if '@' not in input:
@@ -42,24 +54,19 @@ def add_user_to_group(username, groupname):
     boto3_client.admin_add_user_to_group(**add_user_to_group_kwargs)
 
 @auth_page.route('/user', methods=['post', 'get'])
+@login_required
 def user():
-    if 'access_token' not in session:
-        return redirect(url_for('index'))
-        
     id_token        = session.get('id_token')
     refresh_token   = session.get('refresh_token')
     access_token    = session.get('access_token')
-    auth = Cognito(AWS_COGNITO_POOL_ID, AWS_COGNITO_CLIENT_ID, id_token=id_token, refresh_token=refresh_token, access_token=access_token)
+    auth = Cognito(AWS_COGNITO_POOL_ID, AWS_COGNITO_CLIENT_ID, id_token=id_token, refresh_token=refresh_token, access_token=access_token, access_key='dummy', secret_key='dummy')
     form = ProfileForm()
 
     # Renew tokens if expired
     try:
-        # Renew = Flase because I don't think the library one works.
-        if auth.check_token(renew=False):
-            auth_params = {'REFRESH_TOKEN': refresh_token}
-            response = auth.client.initiate_auth(ClientId=AWS_COGNITO_CLIENT_ID, AuthFlow='REFRESH_TOKEN', AuthParameters=auth_params)
-            session['id_token']         = response['AuthenticationResult']['IdToken']
-            session['access_token']     = response['AuthenticationResult']['AccessToken']
+        if auth.check_token():
+            session['id_token']         = auth.id_token
+            session['access_token']     = auth.access_token
     except Exception as e:
         # Something went wrong. Log out the user.
         print(e)
@@ -125,12 +132,12 @@ def signin():
     return render_template('signin.html', form=form)
 
 @auth_page.route('/signout')
+@login_required
 def signout():
-    if 'access_token' in session:
-        session.pop('username', None)
-        session.pop('access_token', None)
-        session.pop('id_token', None)
-        session.pop('refresh_token', None)
+    session.pop('username', None)
+    session.pop('access_token', None)
+    session.pop('id_token', None)
+    session.pop('refresh_token', None)
     return redirect(url_for('index'))
 
 @auth_page.route('/verification', methods=['post', 'get'])

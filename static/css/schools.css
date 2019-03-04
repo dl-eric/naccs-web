@@ -1,0 +1,58 @@
+.center {
+    text-align: center;
+}
+
+.container {
+    margin: 0 auto;
+    max-width: 800px;
+}
+
+.search-label {
+    font-size: 46px;
+    font-family: 'Jockey One';
+    color: #DE9B35;
+    margin: 20px;
+    letter-spacing: 1px;
+}
+
+.schools-search {
+    width: 400px;
+    height: 46px;
+    padding: 2px;
+    font-size: 18px;
+}
+
+#search-button {
+    display: inline-block;
+    height: 50px;
+    font-size: 18px;
+    padding: 2px;
+    width: 100px;
+}
+
+.tt-menu {
+    width: 408px;
+    background-color: white;
+    margin: 5px 0;
+}
+
+.tt-suggestion {
+    text-align: start;
+    height: 46px;
+    line-height: 46px;
+    font-size: 18px;
+    padding: 2px;
+    margin: 4px 0;
+    cursor: pointer;
+}
+
+.tt-suggestion:hover {
+    background-color: gray;
+}
+
+.school-banner__name {
+    font-size: 36px;
+    font-weight: bold;
+    padding: 40px;
+    text-align: center;
+}

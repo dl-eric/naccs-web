@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Schools{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/schools.css') }}">
+
+<div class="container">
+    <div class="search-label center">
+        Search NACCS Schools
+    </div>
+
+    {% with messages = get_flashed_messages(category_filter=["success"]) %}
+    {% if messages %}
+        <ul class="flashes success">
+    {% for message in messages %}
+        <li>{{ message }}</li>
+    {% endfor %}
+        </ul>
+    {% endif %}
+    {% endwith %}
+
+    {% with messages = get_flashed_messages(category_filter=["error"]) %}
+    {% if messages %}
+        <ul class="flashes error">
+    {% for message in messages %}
+        <li>{{ message }}</li>
+    {% endfor %}
+        </ul>
+    {% endif %}
+    {% endwith %}
+
+    <div id="search" class="center">
+        <form action="" method="POST">
+            {{ form.csrf_token() }}
+
+            {{ form.name(class="schools-search") }}
+            {{ form.submit(id="search-button") }}
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript">
+    var schoolsJson = '{{ url_for('schools.get_json') }}';
+</script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/typeahead.bundle.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/schools.js') }}"></script>
+{% endblock %}

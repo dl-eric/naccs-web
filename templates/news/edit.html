@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block title %}Edit Article{% endblock %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/news.css') }}">
+
+<div class="container">
+    <h1 class="center">Edit Article</h1>
+
+    <div class="create-card">
+        {% with messages = get_flashed_messages(category_filter=["success"]) %}
+        {% if messages %}
+            <ul class="flashes success">
+        {% for message in messages %}
+            <li>{{ message }}</li>
+        {% endfor %}
+            </ul>
+        {% endif %}
+        {% endwith %}
+        
+        {% with messages = get_flashed_messages(category_filter=["error"]) %}
+        {% if messages %}
+            <ul class="flashes error">
+        {% for message in messages %}
+            <li>{{ message }}</li>
+        {% endfor %}
+            </ul>
+        {% endif %}
+        {% endwith %}
+
+        <form action="" method="POST">
+            {{ form.csrf_token() }}
+
+            {{ form.title.label }}
+            <div class="create-title">
+                {{ form.title(class="create-input", placeholder="Title") }}
+            </div>
+
+            {{ form.author.label }}
+            <div class="create-author">
+                {{ form.author(class="create-input", placeholder="Author") }}
+            </div>
+
+            {{ form.content.label }}
+            <div class="create-content">
+                {{ form.content(class="create-input", placeholder="Content") }}
+            </div>
+
+            {{ form.summary.label }}
+            <div class="create-summary">
+                {{ form.summary(class="create-input", placeholder="Summary") }}
+            </div>
+
+            {{ form.image.label }}
+            <div class="create-image">
+                {{ form.image }}
+            </div>
+
+            {{ form.submit(class="submit-button") }}
+        </form>
+    </div>
+</div>
+
+{% endblock %}

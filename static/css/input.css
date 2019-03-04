@@ -5,7 +5,7 @@ form {
 
 .inp {
   position: relative;
-  margin: 10px;
+  margin: 10px 0 10px;
   width: 100%;
   max-width: 300px;
 }
@@ -70,9 +70,20 @@ form {
 }
 
 #submit {
-    border: 0;
-    background-color: rgb(255, 153, 0);
-    color: white;
-    font-size: 20px;
-    font-weight: bold;
+  transition: box-shadow 0.1s;
+  cursor: pointer;
+  margin-top: 10px;
+  padding: 0 40px;
+  width: 300px;
+  border: 0;
+  height: 60px;
+  background-color: #ff850a;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+#submit:hover {
+  box-shadow: 0 0px 10px #bbb;
 }

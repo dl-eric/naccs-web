@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}News{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/news.css') }}">
+
+{% if author %}
+<form action="{{ url_for('news.delete', id=article['id']) }}" method="post">
+    <button class="modify-post" onclick="if (!confirm('Are you sure you want to delete this?')) return false;">DELETE</button>
+</form>
+<form action="{{ url_for('news.edit', id=article['id']) }}" method="get">
+    <button class="modify-post">EDIT</button>
+</form>
+{% endif %}
+
+<div class="container">
+
+<article>
+    <img class="news-banner" src="{{ article['image_path'] }}">
+    <div class="article-container">
+        <h1 class="center">
+            {{ article['title'] }}
+        </h1>
+
+        <span class="author">By {{ article['author'] }}</span><span class="news-seperator"></span><span class="date">{{ article['date'].strftime('%B %d, %Y') }}</span> 
+        
+        <p class="news-content">
+            {{ markdown(article['content'])|safe }}
+        </p>
+    </div>
+</article>
+
+</div>
+
+{% endblock %}

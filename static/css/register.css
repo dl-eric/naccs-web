@@ -14,14 +14,6 @@ form {
     flex-basis: 50%;
 }
 
-#submit {
-    border: 0;
-    background-color: rgb(255, 153, 0);
-    color: white;
-    width: 300px;
-    margin: 50px;
-    font-size: 20px;
-    font-weight: bold;
-    height: 60px;
-    box-shadow: 0 0px 10px #ddd;
+.last {
+    margin-bottom: 20px;
 }
