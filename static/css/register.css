@@ -13,3 +13,7 @@ form {
     min-width: 400px;
     flex-basis: 50%;
 }
+
+.last {
+    margin-bottom: 20px;
+}
