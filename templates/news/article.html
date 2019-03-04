@@ -5,8 +5,11 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/news.css') }}">
 
 {% if author %}
-<form action='{{ url_for('news.delete', id=article['id']) }}' method="post">
+<form action="{{ url_for('news.delete', id=article['id']) }}" method="post">
     <button class="delete_post">DELETE</button>
+</form>
+<form action="{{ url_for('news.edit', id=article['id']) }}" method="get">
+    <button class="edit_post">EDIT</button>
 </form>
 {% endif %}
 
@@ -15,16 +18,18 @@
 <article>
     <img class="news-banner" src="{{ article['image_path'] }}">
     <div class="article-container">
-        <h1>
+        <h1 class="center">
             {{ article['title'] }}
         </h1>
+
         <span class="author">By {{ article['author'] }}</span><span class="news-seperator"></span><span class="date">{{ article['date'].strftime('%B %d, %Y') }}</span> 
         
-        <p class="news-summary">
-            {{ article['content'] }}
+        <p class="news-content">
+            {{ article['content']|safe }}
         </p>
     </div>
 </article>
 
 </div>
+
 {% endblock %}

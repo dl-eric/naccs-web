@@ -16,6 +16,7 @@ auth_page = Blueprint('auth_page', __name__, template_folder='templates')
 def login_required(view):
     @functools.wraps(view)
     def wrapped_view(**kwargs):
+        # TODO: We should be doing check_token for this routine
         if 'access_token' not in session:
             return redirect(url_for('auth_page.signin'))
 

@@ -6,6 +6,9 @@ from datetime import date
 from cognito_utils import is_author
 from forms import ArticleForm
 import functools
+import mistune
+
+markdown = mistune.Markdown()
 
 news_page = Blueprint('news', __name__, url_prefix='/news', template_folder='templates')
 
@@ -39,7 +42,7 @@ def create():
     
     form = ArticleForm()
     if form.validate_on_submit():
-        new_post = Article(form.title.data, form.author.data, session.get('username'), form.content.data, form.summary.data)
+        new_post = Article(form.title.data, form.author.data, session.get('username'), markdown(form.content.data), markdown(form.summary.data))
         db.session.add(new_post)
         db.session.commit()
         return redirect(url_for('news.news'))
@@ -71,6 +74,11 @@ def edit(id):
     article = Article.query.filter(Article.id == id).first()
     if article == None:
         return render_template('404.html', username=username), 404
+
+    form = ArticleForm()
+    if form.validate_on_submit():
+        # TODO
+        pass
         
     return render_template('news/edit.html', username=username)
 
