@@ -1,8 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
-import mistune
 
-markdown = mistune.Markdown()
 db = SQLAlchemy()
 
 class School(db.Model):
