@@ -49,6 +49,7 @@ form {
 }
 
 .submit-button {
+    margin: 10px;
     height: 40px;
     width: 300px;
     border: 1px solid #5D79AE;

@@ -1,6 +1,7 @@
 from flask import Flask, render_template, session, request
 from auth import auth_page
 from news import news_page
+from schools import schools_page
 import os
 from matches import Matches
 from db import db, School
@@ -16,6 +17,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://{0}:{1}@{2}/{3}'.format
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.register_blueprint(auth_page)
 app.register_blueprint(news_page)
+app.register_blueprint(schools_page)
 
 @app.errorhandler(404)
 def page_not_found(e):

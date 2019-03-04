@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}{{ school.abbrev }}{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/schools.css') }}">
+
+<div class="card">
+    <div class="school-banner__name">
+        {{ school.name }}
+    </div>
+    
+IN DEVELOPMENT
+</div>
+
+{% endblock %}

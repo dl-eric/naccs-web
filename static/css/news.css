@@ -9,7 +9,11 @@ article {
     color: rgb(241, 241, 241);
 }
 
-input {
+.modify-post {
+    width: 100px;
+}
+
+.create-input {
     min-width: 300px;
     height: 24px;
     margin: 10px;

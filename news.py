@@ -1,7 +1,7 @@
 from flask import Blueprint, flash, g, redirect, render_template, request, url_for, session
 from werkzeug.exceptions import abort
 from auth import login_required, flash_errors
-from db import db, Article, School
+from db import db, Article
 from datetime import date
 from cognito_utils import is_author
 from forms import ArticleForm
@@ -57,7 +57,7 @@ def article(id):
     # Verify that the ID is valid.
     article = Article.query.filter(Article.id == id).first()
     if article == None:
-        return render_template('404.html', username=username), 404
+        return abort(404)
 
     author = False
     if (session.get('access_token')):
@@ -73,7 +73,7 @@ def edit(id):
     # Verify that the ID is valid.
     article = Article.query.filter(Article.id == id).first()
     if article == None:
-        return render_template('404.html', username=username), 404
+        return abort(404)
 
     form = ArticleForm()
     if form.validate_on_submit():

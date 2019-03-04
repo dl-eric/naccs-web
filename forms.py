@@ -113,3 +113,7 @@ class ArticleForm(FlaskForm):
     summary = StringField("Summary", validators=[DataRequired()], widget=TextArea())
     image   = FileField('image', validators=[FileAllowed(['.png', '.jpg', '.PNG', '.JPG'], 'Images only!')])
     submit  = SubmitField("Publish")
+
+class SchoolForm(FlaskForm):
+    name    = StringField("School", validators=[DataRequired()])
+    submit  = SubmitField("Search")
