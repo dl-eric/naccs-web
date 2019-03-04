@@ -33,7 +33,7 @@ def news():
 
     articles = Article.query.order_by(Article.id.desc()).all()
     
-    return render_template('news/index.html', username=username, articles=articles, author=author)
+    return render_template('news/index.html', username=username, articles=articles, author=author, markdown=markdown)
 
 @news_page.route('/create', methods=['get', 'post'])
 @author_required
@@ -42,7 +42,7 @@ def create():
     
     form = ArticleForm()
     if form.validate_on_submit():
-        new_post = Article(form.title.data, form.author.data, session.get('username'), markdown(form.content.data), markdown(form.summary.data))
+        new_post = Article(form.title.data, form.author.data, session.get('username'), form.content.data, form.summary.data)
         db.session.add(new_post)
         db.session.commit()
         return redirect(url_for('news.news'))
@@ -63,7 +63,7 @@ def article(id):
     if (session.get('access_token')):
         author = is_author(username)
 
-    return render_template('news/article.html', username=username, article=article, author=author)
+    return render_template('news/article.html', username=username, article=article, author=author, markdown=markdown)
 
 @news_page.route('/<int:id>/edit', methods=['get', 'post'])
 @author_required
@@ -77,10 +77,21 @@ def edit(id):
 
     form = ArticleForm()
     if form.validate_on_submit():
-        # TODO
-        pass
+        article.title   = form.title.data 
+        article.author  = form.author.data
+        article.content = form.content.data
+        article.summary = form.summary.data
         
-    return render_template('news/edit.html', username=username)
+        db.session.commit()
+        flash("Successfully edited.", 'success')
+        return render_template('news/edit.html', username=username, form=form)
+    
+    form.title.data     = article.title
+    form.author.data    = article.author
+    form.content.data   = article.content
+    form.summary.data   = article.summary
+
+    return render_template('news/edit.html', username=username, form=form)
 
 @news_page.route('/<int:id>/delete', methods=['post'])
 @author_required

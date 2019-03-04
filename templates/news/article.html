@@ -25,7 +25,7 @@
         <span class="author">By {{ article['author'] }}</span><span class="news-seperator"></span><span class="date">{{ article['date'].strftime('%B %d, %Y') }}</span> 
         
         <p class="news-content">
-            {{ article['content']|safe }}
+            {{ markdown(article['content'])|safe }}
         </p>
     </div>
 </article>

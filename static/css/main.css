@@ -48,32 +48,30 @@ form {
     padding: 30px;
 }
 
-#submit {
+.submit-button {
+    height: 40px;
     width: 300px;
     border: 1px solid #5D79AE;
     border-radius: 5px;
     background-color: #fff;
     padding: 10px;
     transition: box-shadow 0.1s;
+    cursor: pointer;
 }
 
-#submit:focus {
+.submit-button:focus {
     border-radius: 5px;
 }
 
-#submit:hover {    
+.submit-button:hover {    
     box-shadow: 0 0px 10px #bbb;
 }
 
-#submit:disabled {
+.submit-button:disabled {
     cursor: default;
     box-shadow: none;
     border: 1px solid #eee;
     background-color: #eee;
-}
-
-#submit {
-    cursor: pointer;
 }
 
 .flashes {

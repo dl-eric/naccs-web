@@ -70,6 +70,7 @@ form {
 }
 
 #submit {
+  cursor: pointer;
   margin-top: 40px;
   padding: 0 40px;
   width: 300px;

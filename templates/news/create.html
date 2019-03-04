@@ -5,6 +5,8 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/news.css') }}">
 
 <div class="container">
+    <h1 class="center">Create an Article</h1>
+
     <div class="create-card">
         {% with messages = get_flashed_messages(category_filter=["success"]) %}
         {% if messages %}
@@ -29,27 +31,32 @@
         <form action="" method="POST">
             {{ form.csrf_token() }}
 
+            {{ form.title.label }}
             <div class="create-title">
                 {{ form.title(placeholder="Title") }}
             </div>
 
+            {{ form.author.label }}
             <div class="create-author">
                 {{ form.author(placeholder="Author") }}
             </div>
 
+            {{ form.content.label }}
             <div class="create-content">
                 {{ form.content(placeholder="Content") }}
             </div>
 
+            {{ form.summary.label }}
             <div class="create-summary">
                 {{ form.summary(placeholder="Summary") }}
             </div>
 
+            {{ form.image.label }}
             <div class="create-image">
                 {{ form.image }}
             </div>
 
-            {{ form.submit }}
+            {{ form.submit(class="submit-button") }}
         </form>
     </div>
 </div>

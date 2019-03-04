@@ -1,5 +1,5 @@
 .create-card {
-    margin: 20px 0;
+    margin: 20px 20px;
     background-color: white;
     border: 2px solid #ddd;
 }
@@ -7,6 +7,18 @@
 article {
     margin: 20px 0 40px 0;
     color: rgb(241, 241, 241);
+}
+
+input {
+    min-width: 300px;
+    height: 24px;
+    margin: 10px;
+}
+
+textarea {
+    resize: none;
+    min-width: 300px;
+    width: 80%;
 }
 
 h1 {
@@ -68,12 +80,10 @@ a:hover {
 
 .create-content > textarea {
     height: 400px;
-    resize: none;
 }
 
 .create-summary > textarea {
     height: 200px;
-    resize: none;
 }
 
 .create-image {
