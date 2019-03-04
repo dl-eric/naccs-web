@@ -1,7 +1,12 @@
-article {
+.create-card {
     margin: 20px 0;
     background-color: white;
     border: 2px solid #ddd;
+}
+
+article {
+    margin: 20px 0 40px 0;
+    color: rgb(241, 241, 241);
 }
 
 h1 {
@@ -9,6 +14,7 @@ h1 {
     font-size: 32px;
     letter-spacing: 1px;
     margin: 0;
+    color: #DE9B35;
 }
 
 a {
@@ -20,7 +26,7 @@ a:hover {
 }
 
 .article-container {
-    padding: 20px 50px 40px 50px;
+    padding: 20px 10px 40px 10px;
 }
 
 .center {
@@ -32,15 +38,44 @@ a:hover {
 }
 
 .news-seperator {
-    border-right: 1px solid black;
+    border-right: 1px solid white;
     margin: 0 8px;
 }
 
 .news-summary {
-    font-size: 18px;
+    font-size: 14px;
+}
+
+.news-content {
+    font-size: 16px;
 }
 
 .container {
     margin: 0 auto;
     max-width: 800px;
+}
+
+.create-title {
+
+}
+
+.create-author {
+
+}
+
+.create-content {
+}
+
+.create-content > textarea {
+    height: 400px;
+    resize: none;
+}
+
+.create-summary > textarea {
+    height: 200px;
+    resize: none;
+}
+
+.create-image {
+    
 }

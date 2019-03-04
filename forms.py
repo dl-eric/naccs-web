@@ -2,6 +2,7 @@ from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed, FileRequired
 from wtforms import StringField, SubmitField, PasswordField
 from wtforms.validators import DataRequired, Email, ValidationError, EqualTo, Length
+from wtforms.widgets import TextArea
 
 def esea_validate(form, field):
     mesg = "Enter a valid ESEA page URL"
@@ -58,7 +59,7 @@ def email_validate(form, field):
 
         is_edu = _suffix_validator(email, 'edu')
         is_ca = _suffix_validator(email, 'ca')
-        print(is_edu, is_ca)
+        
         if not is_edu and not is_ca:
             raise ValidationError(message)
 
@@ -77,8 +78,7 @@ def discord_validate(form, field):
         if len(parts) != 2: # Check if there exists one '#'
             raise ValidationError(format_mesg)
 
-        elif not parts[1].isnumeric(): #
-            print(parts[1])
+        elif not parts[1].isnumeric():
             raise ValidationError(format_mesg)
         elif not _check_user_exists(field.data):
             raise ValidationError(exist_mesg)
@@ -107,8 +107,9 @@ class ProfileForm(FlaskForm):
     submit      = SubmitField("Change Profile")
 
 class ArticleForm(FlaskForm):
-    title   = StringField("Title", validators=[DataRequired(), Length(200)])
-    author  = StringField("Author", validators=[DataRequired(), Length(50)])
-    content = StringField("Content", validators=[DataRequired()])
-    summary = StringField("Summary", validators=[DataRequired()])
-    image   = FileField('image', validators=[FileRequired(), FileAllowed(['.png', '.jpg'], 'Images only!')])
+    title   = StringField("Title", validators=[DataRequired(), Length(max=200)])
+    author  = StringField("Author", validators=[DataRequired(), Length(max=50)])
+    content = StringField("Content", validators=[DataRequired()], widget=TextArea())
+    summary = StringField("Summary", validators=[DataRequired()], widget=TextArea())
+    image   = FileField('image', validators=[FileAllowed(['.png', '.jpg', '.PNG', '.JPG'], 'Images only!')])
+    submit  = SubmitField("Publish")

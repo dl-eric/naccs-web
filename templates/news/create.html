@@ -2,5 +2,56 @@
 {% block title %}Create Article{% endblock %}
 
 {% block content %}
-Create Article
+<link rel="stylesheet" href="{{ url_for('static', filename='css/news.css') }}">
+
+<div class="container">
+    <div class="create-card">
+        {% with messages = get_flashed_messages(category_filter=["success"]) %}
+        {% if messages %}
+            <ul class="flashes success">
+        {% for message in messages %}
+            <li>{{ message }}</li>
+        {% endfor %}
+            </ul>
+        {% endif %}
+        {% endwith %}
+        
+        {% with messages = get_flashed_messages(category_filter=["error"]) %}
+        {% if messages %}
+            <ul class="flashes error">
+        {% for message in messages %}
+            <li>{{ message }}</li>
+        {% endfor %}
+            </ul>
+        {% endif %}
+        {% endwith %}
+
+        <form action="" method="POST">
+            {{ form.csrf_token() }}
+
+            <div class="create-title">
+                {{ form.title(placeholder="Title") }}
+            </div>
+
+            <div class="create-author">
+                {{ form.author(placeholder="Author") }}
+            </div>
+
+            <div class="create-content">
+                {{ form.content(placeholder="Content") }}
+            </div>
+
+            <div class="create-summary">
+                {{ form.summary(placeholder="Summary") }}
+            </div>
+
+            <div class="create-image">
+                {{ form.image }}
+            </div>
+
+            {{ form.submit }}
+        </form>
+    </div>
+</div>
+
 {% endblock %}

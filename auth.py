@@ -16,6 +16,7 @@ auth_page = Blueprint('auth_page', __name__, template_folder='templates')
 def login_required(view):
     @functools.wraps(view)
     def wrapped_view(**kwargs):
+        # TODO: We should be doing check_token for this routine
         if 'access_token' not in session:
             return redirect(url_for('auth_page.signin'))
 
@@ -71,6 +72,7 @@ def user():
             session['access_token']     = response['AuthenticationResult']['AccessToken']
     except Exception as e:
         # Something went wrong. Log out the user.
+        print(e)
         return redirect(url_for('auth_page.signout'))
     
     if form.validate_on_submit():
@@ -158,6 +160,11 @@ def verification():
 
     if form.validate_on_submit():
         code = form.code.data
+
+        if len(code) < 1:
+            flash("Verification code cannot be blank", "error")
+            return render_template('verification.html', form=form)
+
         try:
             auth.confirm_sign_up(code, username=session.get('username'))
         except auth.client.exceptions.CodeMismatchException:

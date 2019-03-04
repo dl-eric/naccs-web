@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
 
 db = SQLAlchemy()
 
@@ -14,5 +15,14 @@ class Article(db.Model):
     author_username = db.Column(db.String(50), nullable=False)
     date            = db.Column(db.Date, nullable=False)
     content         = db.Column(db.String, nullable=False)
-    summary         = db.Column(db.String(200), nullable=False)
+    summary         = db.Column(db.String, nullable=False)
     image_path      = db.Column(db.String(100), nullable=False)
+
+    def __init__ (self, title, author, author_username, content, summary, image_path='https://s3.us-east-2.amazonaws.com/naccs-s3/headerbanner_wide.png'):
+        self.title = title 
+        self.author = author 
+        self.author_username = author_username
+        self.date = datetime.now()
+        self.content = content 
+        self.summary = summary
+        self.image_path = image_path
