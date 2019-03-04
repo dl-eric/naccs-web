@@ -8,6 +8,13 @@ form {
     text-align: center;
 }
 
+.flex-body {
+    display: flex;
+    min-height: 100vh; 
+    flex-direction: column;
+    justify-content: space-between;
+}
+
 .flex-container {
     display: flex;
     flex-wrap: wrap;

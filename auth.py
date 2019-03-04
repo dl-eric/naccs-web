@@ -59,17 +59,14 @@ def user():
     id_token        = session.get('id_token')
     refresh_token   = session.get('refresh_token')
     access_token    = session.get('access_token')
-    auth = Cognito(AWS_COGNITO_POOL_ID, AWS_COGNITO_CLIENT_ID, id_token=id_token, refresh_token=refresh_token, access_token=access_token)
+    auth = Cognito(AWS_COGNITO_POOL_ID, AWS_COGNITO_CLIENT_ID, id_token=id_token, refresh_token=refresh_token, access_token=access_token, access_key='dummy', secret_key='dummy')
     form = ProfileForm()
 
     # Renew tokens if expired
     try:
-        # Renew = Flase because I don't think the library one works.
-        if auth.check_token(renew=False):
-            auth_params = {'REFRESH_TOKEN': refresh_token}
-            response = auth.client.initiate_auth(ClientId=AWS_COGNITO_CLIENT_ID, AuthFlow='REFRESH_TOKEN', AuthParameters=auth_params)
-            session['id_token']         = response['AuthenticationResult']['IdToken']
-            session['access_token']     = response['AuthenticationResult']['AccessToken']
+        if auth.check_token():
+            session['id_token']         = auth.id_token
+            session['access_token']     = auth.access_token
     except Exception as e:
         # Something went wrong. Log out the user.
         print(e)

@@ -9,67 +9,68 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
     <title>{% block title %}{% endblock %} - NACCS</title>
-
-    <div id="header">
-        <div class="header__container">
-        <a href='/'>
-          <img class="header__logo" src="{{ url_for('static', filename='assets/headerlogo_small.png') }}">
-        </a>
-        <a href='/'>
-          <span class="header__title">NACCS</span>
-        </a>
-
-        <span class="header__tabs">
-          <a href='/news'>NEWS</a>
-          <a href='/schools'>SCHOOLS</a>
-          <a href='/partners'>PARTNERS</a>
-          <span class="seperator"></span>
-          {% if session['access_token'] is defined %}
-          <a href="/user">{{ username }}</a>
-          <a href="/signout">Sign Out</a>
-          {% else %}
-          <a href="/signin">Sign In</a>
-          <a href="/register">Register</a>
-          {% endif %}
-        </span>
-      </div>
-    </div>
-
     {% endblock %}
   </head>
   <body>
-    <div id="content">{% block content %}{% endblock %}</div>
-  </body>
+    <div class="flex-body">
+      <div id="header">
+          <div class="header__container">
+          <a href='/'>
+            <img class="header__logo" src="{{ url_for('static', filename='assets/headerlogo_small.png') }}">
+          </a>
+          <a href='/'>
+            <span class="header__title">NACCS</span>
+          </a>
+  
+          <span class="header__tabs">
+            <a href='/news'>NEWS</a>
+            <a href='/schools'>SCHOOLS</a>
+            <a href='/partners'>PARTNERS</a>
+            <span class="seperator"></span>
+            {% if session['access_token'] is defined %}
+            <a href="/user">{{ username }}</a>
+            <a href="/signout">Sign Out</a>
+            {% else %}
+            <a href="/signin">Sign In</a>
+            <a href="/register">Register</a>
+            {% endif %}
+          </span>
+        </div>
+      </div>
 
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}">
-  <footer>
-    <div id="footer">
-      {% block footer %}
-      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+      <div id="content">{% block content %}{% endblock %}</div>
+    
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}">
+      <footer>
+        <div id="footer">
+          {% block footer %}
+          <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
-      <div class="social_container">
-          <a href="mailto:staff@collegiatecounterstrike.com" target="_blank"><i class="fas fa-envelope"></i></a>
-          <a href="https://twitter.com/naccsgg" target="_blank"><i class="fab fa-twitter"></i></a>
-          <a href="https://steamcommunity.com/groups/NACCS_" target="_blank"><i class="fab fa-steam"></i></a>
-          <a href="https://discord.gg/6Bkbavq" target="_blank"><i class="fab fa-discord"></i></a>
-          <a href="https://www.twitch.tv/naccs_tv" target="_blank"><i class="fab fa-twitch"></i></a>
-      </div>
-      <div class="mailing_list_header">
-          JOIN OUR MAILING LIST!
-      </div>
-      <div class="mailing_list_form">
-          <form action="https://collegiatecounterstrike.us20.list-manage.com/subscribe/post?u=9130d4a829c4e581d2500c03a&amp;id=07b709535e" method="post" target="_blank" novalidate>
-          <!-- input -->
-          <input class="mailing_input" name="EMAIL" type="email" placeholder="EMAIL ADDRESS" required>
-          
-          <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-          <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_9130d4a829c4e581d2500c03a_07b709535e" tabindex="-1" value=""></div>
-          
-          <!-- button -->
-          <input class="mailing_button" type="submit" value="SIGN UP">
-          </form>
-      </div>
-      {% endblock %}
+          <div class="social_container">
+              <a href="mailto:staff@collegiatecounterstrike.com" target="_blank"><i class="fas fa-envelope"></i></a>
+              <a href="https://twitter.com/naccsgg" target="_blank"><i class="fab fa-twitter"></i></a>
+              <a href="https://steamcommunity.com/groups/NACCS_" target="_blank"><i class="fab fa-steam"></i></a>
+              <a href="https://discord.gg/6Bkbavq" target="_blank"><i class="fab fa-discord"></i></a>
+              <a href="https://www.twitch.tv/naccs_tv" target="_blank"><i class="fab fa-twitch"></i></a>
+          </div>
+          <div class="mailing_list_header">
+              JOIN OUR MAILING LIST!
+          </div>
+          <div class="mailing_list_form">
+              <form action="https://collegiatecounterstrike.us20.list-manage.com/subscribe/post?u=9130d4a829c4e581d2500c03a&amp;id=07b709535e" method="post" target="_blank" novalidate>
+              <!-- input -->
+              <input class="mailing_input" name="EMAIL" type="email" placeholder="EMAIL ADDRESS" required>
+              
+              <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+              <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_9130d4a829c4e581d2500c03a_07b709535e" tabindex="-1" value=""></div>
+              
+              <!-- button -->
+              <input class="mailing_button" type="submit" value="SIGN UP">
+              </form>
+          </div>
+          {% endblock %}
+        </div>
+      </footer>
     </div>
-  </footer>
+  </body>
 </html>
