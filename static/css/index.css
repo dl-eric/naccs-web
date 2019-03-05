@@ -9,7 +9,6 @@
     max-width: 1200px;
     display: flex;
     margin: 5px 32px;
-    height: 100%;
     visibility: hidden;
     opacity: 0;
     transition: visibility 1s;
