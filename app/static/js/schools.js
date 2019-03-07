@@ -24,28 +24,15 @@ $('#search .schools-search').typeahead({
             '</div>'
           ].join('\n'),
         suggestion: function(school) {
-                let html = [
-                    '<div class="school-result">',
-                        '<img class="school-logo">',
-                        '<div class="school-info">',
-                            '<div class="school-name">',
-                                '' + school.name,
-                            '</div>',
-                            '<div class="school-location">',
-                                'Placeholder',
-                            '</div>',
-                        '</div>',
-                    '</div>'
-                ].join('\n');
                 return [
                     '<div class="school-result">',
-                        '<img class="school-logo">',
+                        '<img class="school-logo" src="' + school.logo_path + '">',
                         '<div class="school-info">',
                             '<div class="school-name">',
                                 school.name,
                             '</div>',
                             '<div class="school-location">',
-                                'Placeholder',
+                                school.city + ', ' + school.state + ' ' + school.country,
                             '</div>',
                         '</div>',
                     '</div>'

@@ -1,12 +1,35 @@
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+import enum
 
 db = SQLAlchemy()
+
+class CountryType(str, enum.Enum):
+    USA = "USA"
+    CA  = "CA"
+    MX  = "MX"
 
 class School(db.Model):
     name            = db.Column(db.String(100), primary_key=True, unique=True, nullable=False)
     abbrev          = db.Column(db.String(50), unique=False, nullable=False)
     council         = db.Column(db.Boolean, unique=False, nullable=False)
+    city            = db.Column(db.String(100), unique=False, nullable=False)
+    state           = db.Column(db.String(100), unique=False, nullable=False)
+    country         = db.Column(db.Enum(CountryType), nullable=False)
+    logo_path       = db.Column(db.String, unique=False, nullable=False)
+
+    @property
+    def serialize(self):
+        """Return object data in easily serializeable format"""
+        return {
+           'name'       : self.name,
+           'council'    : self.council,
+           'city'       : self.city,
+           'state'      : self.state,
+           'country'    : self.country,
+           'logo_path'  : self.logo_path
+        }
+
 
 class Article(db.Model):
     id              = db.Column(db.Integer, primary_key=True)
