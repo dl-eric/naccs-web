@@ -33,5 +33,5 @@ def school(abbrev):
 def get_json():
     results = [] 
     for school in School.query.order_by(School.name).all():
-        results.append(school.name)
+        results.append(school.serialize)
     return jsonify(results)

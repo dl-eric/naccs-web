@@ -4,6 +4,7 @@
 
 .container {
     margin: 0 auto;
+    margin-bottom: 20vh;
     max-width: 800px;
 }
 
@@ -52,18 +53,8 @@
     margin: 5px 0;
 }
 
-.tt-suggestion {
-    text-align: start;
-    height: 46px;
-    line-height: 46px;
-    font-size: 18px;
-    padding: 0 10px;
-    margin: 4px 0;
-    cursor: pointer;
-}
-
 .tt-suggestion:hover {
-    background-color: gray;
+    background-color: #aaa;
 }
 
 .school-banner__name {
@@ -72,3 +63,35 @@
     padding: 40px;
     text-align: center;
 }
+
+.school-result {
+    height: 50px;
+    margin: 4px 0;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    padding: 4px;
+  }
+  
+  .school-logo {
+    display: inline-block;
+    width: 50px;
+    background-color: black;
+  }
+  
+  .school-info {
+    text-align: start;
+    margin: 0 auto 0 0;
+    line-height: 23px;
+    display: inline-block;
+    padding-left: 8px;
+  }
+  
+  .school-name {
+    font-size: 16px;
+  }
+  
+  .school-location {
+    font-size: 14px;
+    color: #555;
+  }
