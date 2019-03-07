@@ -5,8 +5,14 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/schools.css') }}">
 
 <div class="card">
+    <img class="school-banner__img" src="{{ school.logo_path }}">
+
     <div class="school-banner__name">
         {{ school.name }}
+    </div>
+
+    <div class="school-banner__location">
+        {{ school.city }}, {{ school.state }} {{ school.country.name }}
     </div>
     
 IN DEVELOPMENT
