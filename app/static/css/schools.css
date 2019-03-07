@@ -7,6 +7,10 @@
     max-width: 800px;
 }
 
+#search-form {
+    display: flex;
+}
+
 .search-label {
     font-size: 46px;
     font-family: 'Jockey One';
@@ -17,21 +21,33 @@
 
 .schools-search {
     width: 400px;
-    height: 46px;
-    padding: 2px;
+    height: 50px;
+    padding: 0 10px;
     font-size: 18px;
+    border: 0;
+    border-radius: 4px 0 0 4px;
 }
 
 #search-button {
-    display: inline-block;
     height: 50px;
+    width: 100px;
     font-size: 18px;
     padding: 2px;
-    width: 100px;
+    border-radius: 0 4px 4px 0;
+    border: 0;
+    cursor: pointer;
+    background-color: #FF850A;
+    color: white;
+    font-family: 'Jockey One';
+}
+
+.tt-hint {
+    color: #aaa;
 }
 
 .tt-menu {
-    width: 408px;
+    border-radius: 4px;
+    width: 420px;
     background-color: white;
     margin: 5px 0;
 }
@@ -41,7 +57,7 @@
     height: 46px;
     line-height: 46px;
     font-size: 18px;
-    padding: 2px;
+    padding: 0 10px;
     margin: 4px 0;
     cursor: pointer;
 }

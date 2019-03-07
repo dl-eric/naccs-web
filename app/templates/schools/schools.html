@@ -30,7 +30,7 @@
     {% endwith %}
 
     <div id="search" class="center">
-        <form action="" method="POST">
+        <form id="search-form" action="" method="POST">
             {{ form.csrf_token() }}
 
             {{ form.name(class="schools-search") }}
