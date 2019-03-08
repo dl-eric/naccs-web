@@ -111,7 +111,7 @@ class ArticleForm(FlaskForm):
     author  = StringField("Author", validators=[DataRequired(), Length(max=50)])
     content = StringField("Content", validators=[DataRequired()], widget=TextArea())
     summary = StringField("Summary", validators=[DataRequired()], widget=TextArea())
-    image   = FileField('image', validators=[FileAllowed(['.png', '.jpg', '.PNG', '.JPG'], 'Images only!')])
+    image   = FileField('image', validators=[FileAllowed(['png', 'jpg', 'PNG', 'JPG'], 'Images only!')])
     submit  = SubmitField("Publish")
 
 class SchoolForm(FlaskForm):
