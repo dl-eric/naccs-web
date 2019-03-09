@@ -39,10 +39,10 @@
     </div>
 </div>
 
-<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script type="text/javascript">
     var schoolsJson = '{{ url_for('schools.get_json') }}';
+    var typeaheadLink = '{{ url_for('static', filename='js/typeahead.bundle.min.js') }}'
+    var schoolsLink = '{{ url_for('static', filename='js/schools.js') }}';
 </script>
-<script type="text/javascript" src="{{ url_for('static', filename='js/typeahead.bundle.min.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='js/schools.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/load.js') }}" async></script>
 {% endblock %}

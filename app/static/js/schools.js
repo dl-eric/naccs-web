@@ -22,7 +22,7 @@ $('#search .schools-search').typeahead({
                     'Unable to find that school in NACCS',
                 '</p>',
             '</div>'
-          ].join('\n'),
+        ].join('\n'),
         suggestion: function(school) {
                 return [
                     '<div class="school-result">',
