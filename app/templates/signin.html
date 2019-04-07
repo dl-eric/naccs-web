@@ -3,7 +3,7 @@
 
 {% block content %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/input.css') }}">
-
+    
     <div class="content_flex">
         <div class="main_col">
             <div class="card text-center">
@@ -44,6 +44,8 @@
                             <span class="label">{{ form.password.label() }}</span>
                             <span class="border"></span>
                         </label>
+
+                        <a id="forgot" href="forgotpassword">Forgot password</a>
 
                         <label for="inp" class="inp">
                             {{ form.submit }}

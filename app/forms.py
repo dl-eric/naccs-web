@@ -125,6 +125,16 @@ class SchoolForm(FlaskForm):
 
 class ChangePasswordForm(FlaskForm):
     old     = PasswordField("Old Password", validators=[DataRequired()])
-    new     = PasswordField("New Password", validators=[DataRequired()])
-    confirm = PasswordField("Confirm Password", validators=[DataRequired(), EqualTo('new', message="Passwords must match")])
+    new     = PasswordField("New Password", validators=[DataRequired(), password_validate])
+    confirm = PasswordField("Confirm Password", validators=[DataRequired(), EqualTo('new', message="Passwords must match.")])
+    submit  = SubmitField("Change Password")
+
+class ForgotPasswordForm(FlaskForm):
+    identity    = StringField("E-mail or username", validators=[DataRequired()])
+    submit      = SubmitField("Send Confirmation Code")
+
+class ForgotPasswordConfirmForm(FlaskForm):
+    code    = StringField("Confirmation Code", validators=[DataRequired()])
+    new     = PasswordField("New Password", validators=[DataRequired(), password_validate])
+    confirm = PasswordField("Confirm Password", validators=[DataRequired(), EqualTo('new', message="Passwords must match.")])
     submit  = SubmitField("Change Password")

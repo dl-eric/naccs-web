@@ -3,7 +3,7 @@ import functools
 from flask import Blueprint, render_template, request, redirect, url_for, session, flash
 from warrant import Cognito
 from warrant.aws_srp import AWSSRP
-from forms import RegisterForm, VerificationForm, SignInForm, ProfileForm, email_validate, ChangePasswordForm
+from forms import RegisterForm, VerificationForm, SignInForm, ProfileForm, email_validate, ChangePasswordForm, ForgotPasswordForm, ForgotPasswordConfirmForm
 import boto3
 
 AWS_COGNITO_POOL_ID     = os.environ.get('AWS_COGNITO_POOL_ID')
@@ -253,3 +253,50 @@ def change_password():
         flash_errors(form)
 
     return render_template('changepassword.html', form=form)
+
+@auth_page.route('/forgotpassword', methods=['post','get'])
+def forgot_password():
+    form = ForgotPasswordForm()
+
+    if form.validate_on_submit():
+        identity = form.identity.data 
+
+        auth = Cognito(AWS_COGNITO_POOL_ID, AWS_COGNITO_CLIENT_ID, username=identity)
+
+        try:
+            auth.initiate_forgot_password()
+            session['identity'] = identity
+            flash("Check your e-mail for the confirmation code.", "success")
+            return redirect(url_for('auth_page.confirm_forgot_password'))
+        except:
+            flash("Something went wrong.", "error")
+            return render_template("forgotpassword.html", form=form)
+    else:
+        flash_errors(form)
+
+    return render_template('forgotpassword.html', form=form)
+
+@auth_page.route('/confirmforgotpassword', methods=['post','get'])
+def confirm_forgot_password():
+    form = ForgotPasswordConfirmForm()
+
+    if form.validate_on_submit():
+        code = form.code.data
+        new  = form.new.data
+
+        try:
+            auth = Cognito(AWS_COGNITO_POOL_ID, AWS_COGNITO_CLIENT_ID, username=session.get('identity'))
+            auth.confirm_forgot_password(code, new)
+            session.pop('identity', None)
+            flash("Successfully changed password!", "success")
+            return redirect(url_for('auth_page.signin'))
+        except auth.client.exceptions.CodeMismatchException:
+            flash("Invalid verification code.", "error")
+            return render_template('forgotpassword2.html', form=form)
+        except Exception as e:
+            flash("Something went wrong.", "error")
+            print(e)
+            return render_template('forgotpassword2.html', form=form)
+    else:
+        flash_errors(form)
+    return render_template('forgotpassword2.html', form=form)
