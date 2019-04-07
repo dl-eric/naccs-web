@@ -226,6 +226,7 @@ def register():
 
 # Used for FORCE CHANGE PASSWORD case
 @auth_page.route('/changepassword', methods=['post','get'])
+@login_required
 def change_password():
 
     auth = Cognito(AWS_COGNITO_POOL_ID, AWS_COGNITO_CLIENT_ID, id_token=session.get('id_token'), refresh_token=session.get('refresh_token'), access_token=session.get('access_token'))
