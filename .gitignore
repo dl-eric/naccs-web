@@ -90,3 +90,4 @@ ENV/
 
 #docker secrets
 env.list
+local.list
