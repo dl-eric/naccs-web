@@ -21,7 +21,7 @@ app.register_blueprint(schools_page)
 
 @app.errorhandler(404)
 def page_not_found(e):
-    return render_template('404.html', username=session.get('username')), 404
+    return render_template('404.html'), 404
 
 db.init_app(app)
 
@@ -40,7 +40,7 @@ def index():
     except:
         matches = {}
     
-    return render_template("index.html", username=session.get('username'), matches=matches)
+    return render_template("index.html", matches=matches)
 
 if __name__ == '__main__':
     if os.environ.get('FLASK_DEBUG'):

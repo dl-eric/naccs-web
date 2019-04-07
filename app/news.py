@@ -60,12 +60,11 @@ def news():
 
     articles = Article.query.order_by(Article.id.desc()).all()
     
-    return render_template('news/index.html', username=username, articles=articles, author=author, markdown=markdown)
+    return render_template('news/index.html', articles=articles, author=author, markdown=markdown)
 
 @news_page.route('/create', methods=['get', 'post'])
 @author_required
 def create():
-    username = session.get('username', None)
 
     form = ArticleForm()
     if form.validate_on_submit():
@@ -78,7 +77,7 @@ def create():
         return redirect(url_for('news.news'))
     else:
         flash_errors(form)
-    return render_template('news/create.html', username=username, form=form)
+    return render_template('news/create.html', form=form)
 
 @news_page.route('/<int:id>')
 def article(id):
@@ -93,12 +92,11 @@ def article(id):
     if (session.get('access_token')):
         author = is_author(username)
 
-    return render_template('news/article.html', username=username, article=article, author=author, markdown=markdown)
+    return render_template('news/article.html', article=article, author=author, markdown=markdown)
 
 @news_page.route('/<int:id>/edit', methods=['get', 'post'])
 @author_required
 def edit(id):
-    username = session.get('username', None)
 
     # Verify that the ID is valid.
     article = Article.query.filter(Article.id == id).first()
@@ -117,14 +115,14 @@ def edit(id):
         
         db.session.commit()
         flash("Successfully edited.", 'success')
-        return render_template('news/edit.html', username=username, form=form)
+        return render_template('news/edit.html', form=form)
     
     form.title.data     = article.title
     form.author.data    = article.author
     form.content.data   = article.content
     form.summary.data   = article.summary
 
-    return render_template('news/edit.html', username=username, form=form)
+    return render_template('news/edit.html', form=form)
 
 @news_page.route('/<int:id>/delete', methods=['post'])
 @author_required
