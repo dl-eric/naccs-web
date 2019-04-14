@@ -28,7 +28,7 @@
             <a href='/partners'>PARTNERS</a>
             <span class="seperator"></span>
             {% if session['access_token'] is defined %}
-            <a href="/user">{{ username }}</a>
+            <a href="/user">{{ session['username'] }}</a>
             <a href="/signout">Sign Out</a>
             {% else %}
             <a href="/signin">Sign In</a>

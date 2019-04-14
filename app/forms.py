@@ -49,10 +49,15 @@ def password_validate(form, field):
     return _validate(form, field)
 
 def email_validate(form, field):
-    message = "You must use a .edu or .ca address"
+    email_whitelist = ['algonquinlive.com']
+    message = "You must use a .edu, .ca, or whitelisted address."
 
     def _suffix_validator(field, suffix):
         return len(field) >= len(suffix) and field[len(field)-len(suffix):].lower() == suffix
+
+    def _is_whitelisted(email):
+        domain = email.split("@")[1]
+        return domain in email_whitelist
 
     def _validate(form, field):
         email = str(field.data)
@@ -60,7 +65,7 @@ def email_validate(form, field):
         is_edu = _suffix_validator(email, 'edu')
         is_ca = _suffix_validator(email, 'ca')
         
-        if not is_edu and not is_ca:
+        if not is_edu and not is_ca and not _is_whitelisted(email):
             raise ValidationError(message)
 
     return _validate(form, field)
@@ -111,9 +116,25 @@ class ArticleForm(FlaskForm):
     author  = StringField("Author", validators=[DataRequired(), Length(max=50)])
     content = StringField("Content", validators=[DataRequired()], widget=TextArea())
     summary = StringField("Summary", validators=[DataRequired()], widget=TextArea())
-    image   = FileField('image', validators=[FileAllowed(['.png', '.jpg', '.PNG', '.JPG'], 'Images only!')])
+    image   = FileField('image', validators=[FileAllowed(['png', 'jpg', 'PNG', 'JPG'], 'Images only!')])
     submit  = SubmitField("Publish")
 
 class SchoolForm(FlaskForm):
     name    = StringField("School", validators=[DataRequired()])
     submit  = SubmitField("Search")
+
+class ChangePasswordForm(FlaskForm):
+    old     = PasswordField("Old Password", validators=[DataRequired()])
+    new     = PasswordField("New Password", validators=[DataRequired(), password_validate])
+    confirm = PasswordField("Confirm Password", validators=[DataRequired(), EqualTo('new', message="Passwords must match.")])
+    submit  = SubmitField("Change Password")
+
+class ForgotPasswordForm(FlaskForm):
+    identity    = StringField("E-mail or username", validators=[DataRequired()])
+    submit      = SubmitField("Send Confirmation Code")
+
+class ForgotPasswordConfirmForm(FlaskForm):
+    code    = StringField("Confirmation Code", validators=[DataRequired()])
+    new     = PasswordField("New Password", validators=[DataRequired(), password_validate])
+    confirm = PasswordField("Confirm Password", validators=[DataRequired(), EqualTo('new', message="Passwords must match.")])
+    submit  = SubmitField("Change Password")

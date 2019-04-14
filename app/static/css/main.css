@@ -97,3 +97,10 @@ form {
     border: green solid 4px;
     background-color: rgb(218, 255, 163);
 }
+
+#forgot {
+    border: #5D79AE solid 1px;
+    height: 2em;
+    line-height: 2em;
+    border-radius: 2px;
+}

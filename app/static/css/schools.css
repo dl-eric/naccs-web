@@ -1,0 +1,108 @@
+.center {
+    text-align: center;
+}
+
+.container {
+    margin: 0 auto;
+    margin-bottom: 20vh;
+    max-width: 800px;
+}
+
+#search-form {
+    display: flex;
+}
+
+.search-label {
+    font-size: 46px;
+    font-family: 'Jockey One';
+    color: #DE9B35;
+    margin: 20px;
+    letter-spacing: 1px;
+}
+
+.schools-search {
+    width: 400px;
+    height: 50px;
+    padding: 0 10px;
+    font-size: 18px;
+    border: 0;
+    border-radius: 4px 0 0 4px;
+}
+
+#search-button {
+    height: 50px;
+    width: 100px;
+    font-size: 18px;
+    padding: 2px;
+    border-radius: 0 4px 4px 0;
+    border: 0;
+    cursor: pointer;
+    background-color: #FF850A;
+    color: white;
+    font-family: 'Jockey One';
+}
+
+.tt-hint {
+    color: #aaa;
+}
+
+.tt-menu {
+    border-radius: 4px;
+    width: 420px;
+    background-color: white;
+    margin: 5px 0;
+}
+
+.tt-suggestion:hover {
+    background-color: #aaa;
+}
+
+.school-result {
+    height: 50px;
+    margin: 4px 0;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    padding: 4px;
+  }
+  
+  .school-logo {
+    display: inline-block;
+    width: 50px;
+    background-color: black;
+  }
+  
+  .school-info {
+    text-align: left;
+    margin: 0 auto 0 0;
+    line-height: 23px;
+    display: inline-block;
+    padding-left: 8px;
+  }
+  
+  .school-name {
+    font-size: 16px;
+  }
+  
+  .school-location {
+    font-size: 14px;
+    color: #555;
+  }
+
+  /* school.html */
+  
+.school-banner__name {
+    font-size: 36px;
+    font-weight: bold;
+    padding: 40px;
+    text-align: center;
+}
+
+.school-banner__img {
+    display: block;
+    margin: 0 auto;
+}
+
+.school-banner__location {
+    text-align: center;
+}

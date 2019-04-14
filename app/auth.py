@@ -3,7 +3,7 @@ import functools
 from flask import Blueprint, render_template, request, redirect, url_for, session, flash
 from warrant import Cognito
 from warrant.aws_srp import AWSSRP
-from forms import RegisterForm, VerificationForm, SignInForm, ProfileForm, email_validate
+from forms import RegisterForm, VerificationForm, SignInForm, ProfileForm, email_validate, ChangePasswordForm, ForgotPasswordForm, ForgotPasswordConfirmForm
 import boto3
 
 AWS_COGNITO_POOL_ID     = os.environ.get('AWS_COGNITO_POOL_ID')
@@ -86,7 +86,7 @@ def user():
     user = auth.get_user_obj(username=user['Username'], attribute_list=user['UserAttributes'], attr_map={"custom:discord":"discord", "custom:esea":"esea"})
     form.discord.data = user.discord
 
-    return render_template('user.html', user=user, username=session.get('username'), form=form)
+    return render_template('user.html', user=user, form=form)
 
 @auth_page.route('/signin', methods=['post', 'get'])
 def signin():
@@ -119,7 +119,10 @@ def signin():
             session['verify'] = True
             session['username'] = email_or_username
             return redirect(url_for('auth_page.verification'))
-        
+        except auth.client.exceptions.ForceChangePasswordException:
+            flash("Admin created accounts are currently not supported.", "error")
+            return render_template('signin.html', form=form)
+
         user = auth.client.get_user(AccessToken=auth.access_token)
         session['username'] = user['Username']
         session['access_token'] = auth.access_token
@@ -210,6 +213,7 @@ def register():
             flash("Username cannot be an e-mail", 'error')
             return render_template('register.html', form=form)
         except Exception as e:
+            print(e)
             flash("Something went wrong. Double check your parameters and try again.", 'error')
             return render_template('register.html', form=form)
         
@@ -219,3 +223,80 @@ def register():
         flash_errors(form)
 
     return render_template('register.html', form=form)
+
+# Used for FORCE CHANGE PASSWORD case
+@auth_page.route('/changepassword', methods=['post','get'])
+@login_required
+def change_password():
+
+    auth = Cognito(AWS_COGNITO_POOL_ID, AWS_COGNITO_CLIENT_ID, id_token=session.get('id_token'), refresh_token=session.get('refresh_token'), access_token=session.get('access_token'))
+
+    form = ChangePasswordForm()
+    if form.validate_on_submit():
+        old = form.old.data
+        new = form.new.data
+
+        try:
+            auth.change_password(old, new)
+            flash("Successfully changed password!", 'success')
+        except auth.client.exceptions.NotAuthorizedException:
+            flash ("Incorrect password", "error")
+        except auth.client.exceptions.LimitExceededException:
+            flash ("Attempt limit exceeded. Please try again after some time.", "error")
+        except Exception as e:
+            print (e)
+            flash("Something went wrong. Contact Tech Crew for help in Discord!", 'error')
+        finally:
+            return render_template('changepassword.html', form=form)
+
+    else:
+        flash_errors(form)
+
+    return render_template('changepassword.html', form=form)
+
+@auth_page.route('/forgotpassword', methods=['post','get'])
+def forgot_password():
+    form = ForgotPasswordForm()
+
+    if form.validate_on_submit():
+        identity = form.identity.data 
+
+        auth = Cognito(AWS_COGNITO_POOL_ID, AWS_COGNITO_CLIENT_ID, username=identity)
+
+        try:
+            auth.initiate_forgot_password()
+            session['identity'] = identity
+            flash("Check your e-mail for the confirmation code.", "success")
+            return redirect(url_for('auth_page.confirm_forgot_password'))
+        except:
+            flash("Something went wrong.", "error")
+            return render_template("forgotpassword.html", form=form)
+    else:
+        flash_errors(form)
+
+    return render_template('forgotpassword.html', form=form)
+
+@auth_page.route('/confirmforgotpassword', methods=['post','get'])
+def confirm_forgot_password():
+    form = ForgotPasswordConfirmForm()
+
+    if form.validate_on_submit():
+        code = form.code.data
+        new  = form.new.data
+
+        try:
+            auth = Cognito(AWS_COGNITO_POOL_ID, AWS_COGNITO_CLIENT_ID, username=session.get('identity'))
+            auth.confirm_forgot_password(code, new)
+            session.pop('identity', None)
+            flash("Successfully changed password!", "success")
+            return redirect(url_for('auth_page.signin'))
+        except auth.client.exceptions.CodeMismatchException:
+            flash("Invalid verification code.", "error")
+            return render_template('forgotpassword2.html', form=form)
+        except Exception as e:
+            flash("Something went wrong.", "error")
+            print(e)
+            return render_template('forgotpassword2.html', form=form)
+    else:
+        flash_errors(form)
+    return render_template('forgotpassword2.html', form=form)

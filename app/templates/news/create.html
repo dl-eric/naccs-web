@@ -28,7 +28,7 @@
         {% endif %}
         {% endwith %}
 
-        <form action="" method="POST">
+        <form action="" method="POST" enctype="multipart/form-data">
             {{ form.csrf_token() }}
 
             {{ form.title.label }}

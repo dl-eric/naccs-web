@@ -87,3 +87,22 @@ form {
 #submit:hover {
   box-shadow: 0 0px 10px #bbb;
 }
+
+.secondary-button {
+  color: #5D79AE;
+  height: 3em;
+  line-height: 3em;
+  text-align: center;
+  margin-top: 10px;
+  display: inline-block;
+  width: 300px;
+  border: 1px solid #5D79AE;
+  border-radius: 5px;
+  background-color: #fff;
+  transition: box-shadow 0.1s;
+  cursor: pointer;
+}
+
+.secondary-button:hover {
+  box-shadow: 0 0px 10px #bbb;
+}
