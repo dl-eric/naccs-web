@@ -1,9 +1,9 @@
 # NACCS website
-![](https://img.shields.io/website-up-down-green-red/http/naccs.azurewebsites.net.svg?style=flat)
+![](https://img.shields.io/website/https/www.collegiatecounterstrike.com.svg)
 
 This is the official repository for the North American Collegiate Counter-Strike website!
 
-Master branch should ALWAYS be production ready. Master is set up with Azure App Service Kudu, and CD is triggered upon every commit (for now).
+Master branch should ALWAYS be production ready. No continuous deployment is set up at the moment.
 
 ## Local Deployment
 
@@ -20,6 +20,14 @@ Make sure you have the following environmental variables:
 - AWS_DEFAULT_REGION
 
 - FLASK_SECRET_KEY
+
+- DB_DB
+
+- DB_HOST
+
+- DB_PASSWORD
+
+- DB_USER
 
 The AWS keys are AWS Cognito dependent. The Flask key can be anything, just make it secure! 
 
@@ -40,7 +48,7 @@ Clone the repository and go into the root folder.
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
-FLASK_APP=app.py flask run
+FLASK_APP=main.py flask run
 ```
 
 From there, the Flask app should be running on localhost:5000.
