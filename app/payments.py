@@ -45,8 +45,8 @@ def paypal_payment():
 
         # Redirect URLs
         "redirect_urls": {
-            "return_url": "http://localhost:5000/payment/paypal_Return?success=true",
-            "cancel_url": "http://localhost:5000/payment/paypal_Return?cancel=true"},
+            "return_url": "http://www.collegiatecounterstrike.com/payment/paypal_Return?success=true",
+            "cancel_url": "http://www.collegiatecounterstrike.com/payment/paypal_Return?cancel=true"},
 
         # Transaction
         # A transaction defines the contract of a
