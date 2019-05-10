@@ -1,8 +1,31 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed, FileRequired
-from wtforms import StringField, SubmitField, PasswordField
+from wtforms import StringField, SubmitField, PasswordField, SelectField, BooleanField
 from wtforms.validators import DataRequired, Email, ValidationError, EqualTo, Length
 from wtforms.widgets import TextArea
+
+class RequiredIf(object):
+
+    def __init__(self, **kwargs):
+        self.conditions = kwargs
+
+    def __call__(self, form, field):
+        # NOTE! you can create here any custom processing
+        current_value = form.data.get(field.name)
+        if current_value == 'None':
+            for condition_field, reserved_value in self.conditions.items():
+                dependent_value = form.data.get(condition_field)
+                if condition_field not in form.data:
+                    continue
+                elif dependent_value == reserved_value:
+                    # just an example of error
+                    raise Exception(
+                        'Invalid value of field "%s". Field is required when %s==%s' % (
+                            field.name,
+                            condition_field,
+                            dependent_value
+                        ))
+                        
 
 def esea_validate(form, field):
     mesg = "Enter a valid ESEA page URL"
@@ -138,3 +161,20 @@ class ForgotPasswordConfirmForm(FlaskForm):
     new     = PasswordField("New Password", validators=[DataRequired(), password_validate])
     confirm = PasswordField("Confirm Password", validators=[DataRequired(), EqualTo('new', message="Passwords must match.")])
     submit  = SubmitField("Change Password")
+
+class CreateTeamForm(FlaskForm):
+    school =   StringField("School Name (Captain's School)", validators=[DataRequired()])
+    name =     StringField("Team Name", validators=[DataRequired()])
+    teamtype = SelectField('Team Type', choices=[('',''),('div1','Division 1'), ('div2','Division 2'),('mixed','Multi-College')], validators=[DataRequired()])
+    password = PasswordField("Password", validators=[DataRequired()], render_kw={'class': 'input', 'placeholder': ' '})
+    submit  =  SubmitField("Create Team")
+
+class JoinTeam(FlaskForm):
+    password = PasswordField("Join Team (Enter Password)", validators=[DataRequired()])
+    submit  =  SubmitField("Join Team")
+
+class LeaveTeamForm(FlaskForm):
+    submit = SubmitField("Leave My Team")
+class ConfirmForm(FlaskForm):
+    accept  = BooleanField('I Accept')
+    submit  = SubmitField("Confirm")

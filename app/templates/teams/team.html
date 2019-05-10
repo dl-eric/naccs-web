@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block title %} {{team.name}} {% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/teams.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/schools.css') }}">
+
+
+<div class="card">
+        {% with messages = get_flashed_messages(category_filter=["success"]) %}
+        {% if messages %}
+            <ul class="flashes success">
+        {% for message in messages %}
+            <li>{{ message }}</li>
+        {% endfor %}
+            </ul>
+        {% endif %}
+        {% endwith %}
+    
+        {% with messages = get_flashed_messages(category_filter=["error"]) %}
+        {% if messages %}
+            <ul class="flashes error">
+        {% for message in messages %}
+            <li>{{ message }}</li>
+        {% endfor %}
+            </ul>
+        {% endif %}
+        {% endwith %}
+    <div class="center">
+    <label class="title">{{ team.name }}</label>
+</div>
+    <label class="leader"> Leader: {{team.leader}}</lable><br>
+        
+        {% for player in players %}
+        
+        <label class="playername">{{player['name']}} </label>
+    <label class="playerpay">{% if player['paid'] == 'true' %}
+        Paid 
+        {% endif %}
+        {% if player['paid'] == 'false' %}
+        Not Paid 
+        {% endif %}</label>
+
+        
+        <br>
+        {% endfor %}
+        {% if session['access_token'] is defined %}
+        <form action="" method="POST" enctype="multipart/form-data">
+            {{ form.csrf_token() }}  
+            
+        <label class="label">{{form.password.label}}</label><br>
+        <div class="teamtype">{{form.password(class="forminput")}}</div>
+        {{form.submit}}
+        </form>
+
+       
+      {% endif %}
+
+</div>
+{% if session['access_token'] is defined %}
+<form action="" method="POST" enctype="multipart/form-data">
+    {{ lform.csrf_token() }}
+    {{ lform.submit(class="submit-button") }}
+</form>
+{% endif %}
+
+{% endblock %}
