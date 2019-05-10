@@ -64,8 +64,14 @@ table {
     background-color: #7289DA;
 }
 
+
 .discord a {
     width: 100%;
     color: white;
     text-decoration: none;
+}
+
+.summer{
+    background-color: #de9a35;
+
 }
