@@ -24,8 +24,8 @@ def login_required(view):
 
 paypal.configure({
     "mode": "live",  # sandbox or live
-    "client_id": os.environ.get('client_id'),
-    "client_secret": os.environ.get('client_secret')})
+    "client_id": os.environ.get('PAYPAL_CLIENT_ID'),
+    "client_secret": os.environ.get('CLIENT_SECRET')})
 
 
 @payments_page.route('/paypal_payment', methods=['GET'])
