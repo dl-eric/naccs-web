@@ -300,3 +300,4 @@ def confirm_forgot_password():
     else:
         flash_errors(form)
     return render_template('forgotpassword2.html', form=form)
+

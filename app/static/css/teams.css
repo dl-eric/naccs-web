@@ -1,0 +1,153 @@
+.title{
+  font-size: 32px;
+  font-weight: bold;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 50px;
+}
+.label{
+    font-size: 22px;
+    font-weight: bold;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 60px
+}
+.leader{
+    vertical-align: middle;
+    line-height: 50px;
+    font-size: 20px;
+    text-align: center;
+
+    
+}
+.teamtype{
+  font-size: 18px;
+  text-align: center;
+  vertical-align: middle;
+  width: 100%;
+  margin-right: 10px;
+}
+select{
+  font-size: 18px;
+}
+#teamtype{
+  margin-right: 2%;
+}
+.forminput{
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  height: 30px;
+  font-size: 16px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+th, td {
+    text-align: center;
+    padding: 20px 45px;
+    border-bottom: 1px solid #ddd;
+  }
+tr:nth-child(even) {background-color: #f2f2f2;}
+
+  ul{
+    list-style-type: none;
+
+  }
+
+  #submit {
+    transition: box-shadow 0.1s;
+    cursor: pointer;
+    margin-top: 10px;
+    padding: 0 40px;
+    width: 300px;
+    border: 0;
+    height: 60px;
+    background-color: #ff850a;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 5px;
+  }
+  
+  #submit:hover {
+    box-shadow: 0 0px 10px #bbb;
+  }
+
+  #submit-teams {
+    transition: box-shadow 0.1s;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-left: 30%;
+    padding: 10px 40px;
+    width: 300px;
+    border: 0;
+    height: 60px;
+    background-color: #ff850a;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 5px;
+  }
+  
+  #submit-teams:hover {
+    box-shadow: 0 0px 10px #bbb;
+  }
+  .center{
+    vertical-align: middle;
+    line-height: 25px;
+  }
+  .paybutton{
+    align-items : center;
+    line-height: 25px;
+    width: 100%;
+    height: 60px;
+    background-color: #ff850a;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 10px 40px;
+    margin-left: 20%;
+  }
+  .playername{
+    font-weight: bold;
+  }
+  .playerpay{
+    margin-left: 10px;
+    font-size: 15px;
+  }
+  .returnbutton{
+    margin-left: 40%;
+    line-height: 25px;
+    width: 100%;
+    height: 60px;
+    background-color: #ff850a;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 10px 40px;
+  }
+  .rules {
+    display : flex;
+    align-items : center;
+    text-align: center;
+}
+.rulesbutton{
+  align-items : center;
+  line-height: 25px;
+  width: 100%;
+  height: 60px;
+  background-color: #ff850a;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  border-radius: 5px;
+  padding: 10px 40px;
+
+}
+  
