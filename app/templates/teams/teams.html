@@ -33,29 +33,30 @@
                   <th>Team Name</th>
                   <th>College</th>
                 </tr>
-                
+
                 {% for team in teams %}
-               
+
                 <tr>
                   <td><a href="/teams/{{team['name']}}">{{team['name']}}</a></td>
                   <td>{{team['school']}}</td>
-                  
+
                 </tr>
                 <tr>
-                  
+
                   {% endfor %}
-   
+
               </table>
               <br><br>
-              
+
               <a id="submit-teams" class="center"  href="./createteam">Create Team</a>
             </div>
-            
 
-              
+
+
 </div>
+{% if player_check != None %}
 <div class="card">
     <a class="paybutton"  href="/payment/paypal_payment">Pay Summer League Fee</a>
-        <h3>DISCLAIMER: DO NOT PAY YOUR LEAGUE FEE UNTIL YOU'RE ON A ROSTER</h3>
+
 </div>
 {% endblock %}
