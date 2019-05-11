@@ -146,15 +146,12 @@ def leaveconfirm():
                 db.session.delete(leader)
                 db.session.commit()
                 flash('You have successfully left your team (Your team was deleted!).', 'success')
-<<<<<<< HEAD
                 return redirect('url_for('teams.teams')')
             else:
                 #player is not leader and is just leaving his team.
-=======
                 return redirect(url_for('teams.teams')) 
             else: 
                 #player is not leader and is just leaving his team.   
->>>>>>> parent of 1497d91... Pay Button/Leave Button Update
                 user.team_id = 0
                 db.session.commit()
                 flash('You have successfully left your team.', 'success')
