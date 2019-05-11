@@ -146,11 +146,11 @@ def leaveconfirm():
                 db.session.delete(leader)
                 db.session.commit()
                 flash('You have successfully left your team (Your team was deleted!).', 'success')
-                return redirect(url_for('teams.teams')) 
+                return redirect(url_for('teams.teams'))
             else:
                 #player is not leader and is just leaving his team.
                 return redirect(url_for('teams.teams'))
-            else:
+        else:
                 #player is not leader and is just leaving his team.
                 user.team_id = 0
                 db.session.commit()
