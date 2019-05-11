@@ -16,7 +16,7 @@
             </ul>
         {% endif %}
         {% endwith %}
-
+    
         {% with messages = get_flashed_messages(category_filter=["error"]) %}
         {% if messages %}
             <ul class="flashes error">
@@ -29,35 +29,35 @@
     <div class="center">
     <label class="title">{{ team.name }}</label>
 </div>
-    <label class="leader"> Leader: {{team.leader}}</label><br>
-
+    <label class="leader"> Leader: {{team.leader}}</lable><br>
+        
         {% for player in players %}
-
+        
         <label class="playername">{{player['name']}} </label>
     <label class="playerpay">{% if player['paid'] == 'true' %}
-        Paid
+        Paid 
         {% endif %}
         {% if player['paid'] == 'false' %}
-        Not Paid
+        Not Paid 
         {% endif %}</label>
 
-
+        
         <br>
         {% endfor %}
         {% if session['access_token'] is defined %}
         <form action="" method="POST" enctype="multipart/form-data">
-            {{ form.csrf_token() }}
-
+            {{ form.csrf_token() }}  
+            
         <label class="label">{{form.password.label}}</label><br>
         <div class="teamtype">{{form.password(class="forminput")}}</div>
         {{form.submit}}
         </form>
 
-
+       
       {% endif %}
 
 </div>
-{% if p['team_id'] == team.team_id %}
+{% if session['access_token'] is defined %}
 <form action="" method="POST" enctype="multipart/form-data">
     {{ lform.csrf_token() }}
     {{ lform.submit(class="submit-button") }}
