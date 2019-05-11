@@ -90,11 +90,11 @@ def create():
         #Checks if team name is taken.
         if team > 0:
             flash('This name already exists. Please Choose another.', 'error')
-            return redirect('http://www.collegiatecounterstrike.com/teams/createteam')
+            return redirect(url_for('teams.create'))
         #Only one account per leader.
         elif leader_check > 0:
             flash('You cannot create more than one team.', 'error')
-            return redirect('http://www.collegiatecounterstrike.com/teams/createteam')
+            return redirect(url_for('teams.create'))
         elif player_check == 0:
             enc_pass = bcrypt_sha256.hash(form.password.data)
             new_post = Teams(form.school.data, form.name.data, form.teamtype.data, session.get('username'), enc_pass)
@@ -105,7 +105,7 @@ def create():
             db.session.add(new_player)
             db.session.commit()
             flash('Your team has been successfully created!', 'success')
-            return redirect('http://www.collegiatecounterstrike.com/teams/')
+            return redirect(url_for('teams.teams'))
         else:
             players = Players.query.filter(Players.name == session.get('username')).first()
             enc_pass = bcrypt_sha256.hash(form.password.data)
@@ -116,7 +116,7 @@ def create():
             players.team_id = tid.team_id
             db.session.commit()
             flash('Your team has been successfully created!', 'success')
-            return redirect('http://www.collegiatecounterstrike.com/teams/')
+            return redirect(url_for('teams.teams'))
     else:
         flash_errors(form)
     return render_template('teams/createteam.html', form = form, username=session.get('username'))
@@ -132,7 +132,7 @@ def leaveconfirm():
             leader = Teams.query.filter(Teams.leader == session.get('username')).first()
             if user == None:
                 flash('You are not currently on a team.', 'error')
-                return redirect('http://www.collegiatecounterstrike.com/teams/')
+                return redirect(url_for('teams.teams'))
             # if statement checking whether theyre a leader (if theyre leader delete the team theyre a leader of)
             # set the ids of all users that were on the team to null or 0
             elif leader != None:
@@ -147,16 +147,16 @@ def leaveconfirm():
                 db.session.delete(leader)
                 db.session.commit()
                 flash('You have successfully left your team (Your team was deleted!).', 'success')
-                return redirect('http://www.collegiatecounterstrike.com/teams/')
+                return redirect('url_for('teams.teams')')
             else:
                 #player is not leader and is just leaving his team.
                 user.team_id = 0
                 db.session.commit()
                 flash('You have successfully left your team.', 'success')
-                return redirect('http://www.collegiatecounterstrike.com/teams/')
+                return redirect(url_for('teams.teams'))
         elif form.accept.data == False:
             flash('You must accept to leave your team.', 'error')
-            return redirect('http://www.collegiatecounterstrike.com/teams/')
+            return redirect(url_for('teams.teams'))
         else:
-            return redirect('http://www.collegiatecounterstrike.com/teams/')
+            return redirect(url_for('teams.teams'))
     return render_template('teams/confirm.html', form = form)
