@@ -83,7 +83,7 @@ def create():
     player_check = Teams.query.filter(Players.name == session.get('username')).count()
     form = CreateTeamForm()
     if form.validate_on_submit():
-        team = Teams.query.filter(Teams.name == form.name.data).count()
+        team = Teams.query.filter(Teams.name == form.teamname.data).count()
         leader_check = Teams.query.filter(Teams.leader == session.get('username')).count()
         player_check = Players.query.filter(Players.name == session.get('username')).count()
         #Checks if team name is taken.
@@ -96,10 +96,10 @@ def create():
             return redirect(url_for('teams.create'))
         elif player_check == 0:
             enc_pass = bcrypt_sha256.hash(form.password.data)
-            new_post = Teams(form.school.data, form.name.data, form.teamtype.data, session.get('username'), enc_pass)
+            new_post = Teams(form.school.data, form.teamname.data, form.teamtype.data, session.get('username'), enc_pass)
             db.session.add(new_post)
             db.session.commit()
-            team1 = Teams.query.filter(Teams.name == form.name.data).first()
+            team1 = Teams.query.filter(Teams.name == form.teamname.data).first()
             new_player = Players(session.get('username'), form.school.data, team1.team_id, 'false')
             db.session.add(new_player)
             db.session.commit()
@@ -108,10 +108,10 @@ def create():
         else:
             players = Players.query.filter(Players.name == session.get('username')).first()
             enc_pass = bcrypt_sha256.hash(form.password.data)
-            new_post = Teams(form.school.data, form.name.data, form.teamtype.data, session.get('username'), enc_pass)
+            new_post = Teams(form.school.data, form.teamname.data, form.teamtype.data, session.get('username'), enc_pass)
             db.session.add(new_post)
             db.session.commit()
-            tid = Teams.query.filter(Teams.name == form.name.data).first()
+            tid = Teams.query.filter(Teams.name == form.teamname.data).first()
             players.team_id = tid.team_id
             db.session.commit()
             flash('Your team has been successfully created!', 'success')
