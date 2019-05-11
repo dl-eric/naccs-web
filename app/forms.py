@@ -164,7 +164,7 @@ class ForgotPasswordConfirmForm(FlaskForm):
 
 class CreateTeamForm(FlaskForm):
     school =   StringField("School Name (Captain's School)", validators=[DataRequired()])
-    name =     StringField("Team Name", validators=[DataRequired()])
+    teamname =     StringField("Team Name", validators=[DataRequired()])
     teamtype = SelectField('Team Type', choices=[('',''),('div1','Division 1'), ('div2','Division 2'),('mixed','Multi-College')], validators=[DataRequired()])
     password = PasswordField("Password", validators=[DataRequired()], render_kw={'class': 'input', 'placeholder': ' '})
     submit  =  SubmitField("Create Team")
