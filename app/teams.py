@@ -51,26 +51,26 @@ def team(name):
                 already_leader = Players.query.filter(Teams.leader == session.get('username')).count()
                 if already_on_team.team_id != 0:
                     flash('You are already on a team.', 'error')
-                    return redirect('http://localhost:5000/teams/')
+                    return redirect(url_for('teams.teams'))
                 if already_leader > 0:
                     flash('You are already the leader of a team.', 'error')
-                    return redirect('http://localhost:5000/teams/')
+                    return redirect(url_for('teams.teams'))
                 #if player isnt in players table it will create a new row for the player
                 elif already_on_team == None:
                     new_post = Players(session.get('username'), 'null', team.team_id, 'false')
                     db.session.add(new_post)
                     db.session.commit()
                     flash('You have joined the team', 'success')
-                    return redirect('http://localhost:5000/teams/')
+                    return redirect(url_for('teams.teams'))
                 #if player is in the table then it will just update their team id to the team they joined
                 else:
                     already_on_team.team_id = team.team_id
                     db.session.commit()
                     flash('You have joined the team', 'success')
-                    return redirect('http://localhost:5000/teams/')
+                    return redirect(url_for('teams.teams'))
             else:
                 flash('The password you entered is incorrect!', 'error')
-                return redirect('http://localhost:5000/teams/')
+                return redirect(url_for('teams.teams'))
     lform = LeaveTeamForm()
     if lform.validate_on_submit():
         return redirect(url_for('teams.leaveconfirm'))
