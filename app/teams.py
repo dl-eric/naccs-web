@@ -46,7 +46,6 @@ def team(name):
     refresh_token   = session.get('refresh_token')
     access_token    = session.get('access_token')
     auth = Cognito(AWS_COGNITO_POOL_ID, AWS_COGNITO_CLIENT_ID, id_token=id_token, refresh_token=refresh_token, access_token=access_token, access_key='dummy', secret_key='dummy')
-    user = auth.client.get_user(AccessToken=session.get('access_token'))
     user = auth.get_user_obj(username=user['Username'], attribute_list=user['UserAttributes'], attr_map={"custom:discord":"discord", "custom:esea":"esea"})
     # Check if team exists
     team = Teams.query.filter(Teams.name == name).first()
@@ -96,7 +95,6 @@ def create():
     refresh_token   = session.get('refresh_token')
     access_token    = session.get('access_token')
     auth = Cognito(AWS_COGNITO_POOL_ID, AWS_COGNITO_CLIENT_ID, id_token=id_token, refresh_token=refresh_token, access_token=access_token, access_key='dummy', secret_key='dummy')
-    user = auth.client.get_user(AccessToken=session.get('access_token'))
     user = auth.get_user_obj(username=user['Username'], attribute_list=user['UserAttributes'], attr_map={"custom:discord":"discord", "custom:esea":"esea"})
     player_check = Teams.query.filter(Players.name == session.get('username')).count()
     form = CreateTeamForm()
