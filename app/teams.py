@@ -10,6 +10,9 @@ import os
 
 teams_page = Blueprint('teams', __name__, url_prefix='/teams', template_folder='templates')
 
+AWS_COGNITO_POOL_ID     = os.environ.get('AWS_COGNITO_POOL_ID')
+AWS_COGNITO_CLIENT_ID   = os.environ.get('AWS_COGNITO_CLIENT_ID')
+
 
 def login_required(view):
     @functools.wraps(view)
