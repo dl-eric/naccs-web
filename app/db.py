@@ -44,7 +44,7 @@ class Teams(db.Model):
         self.team_type = team_type
         self.leader = leader
         self.password = password
-    
+
 
 class Article(db.Model):
     id              = db.Column(db.Integer, primary_key=True)
@@ -57,11 +57,11 @@ class Article(db.Model):
     image_path      = db.Column(db.String(100), nullable=False)
 
     def __init__ (self, title, author, author_username, content, summary, image_path='https://s3.us-east-2.amazonaws.com/naccs-s3/headerbanner_wide.png'):
-        self.title = title 
-        self.author = author 
+        self.title = title
+        self.author = author
         self.author_username = author_username
         self.date = datetime.now()
-        self.content = content 
+        self.content = content
         self.summary = summary
         self.image_path = image_path
 
@@ -71,12 +71,14 @@ class Players(db.Model):
     school           = db.Column(db.String(255), primary_key=False, unique=False, nullable=True)
     team_id         = db.Column(db.Integer, primary_key=False, unique=False, nullable=False)
     paid            = db.Column(db.String(5), primary_key=False, unique=False, nullable=False)
+    esea            = db.Column(db.String(255), primary_key=False, unique=False, nullable=False)
 
-    def __init__ (self, name, school, team_id, paid):
+    def __init__ (self, name, school, team_id, paid, esea):
         self.name       = name
         self.school     = school
         self.team_id    = team_id
         self.paid       = paid
+        self.esea       = esea
 
 class Payments(db.Model):
     name       = db.Column(db.String(255), primary_key=True)
@@ -90,5 +92,3 @@ class Payments(db.Model):
         self.paymentid     = paymentid
         self.payerid    = payerid
         self.date       = date
-        
-        
