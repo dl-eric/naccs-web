@@ -42,6 +42,8 @@ select{
 }
 
 table {
+    height: 100%;
+    overflow-y: scroll;
     border-collapse: collapse;
     width: 100%;
   }
