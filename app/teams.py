@@ -40,6 +40,20 @@ def rules():
 
 @teams_page.route('/<name>', methods=['post', 'get'])
 def team(name):
+    id_token        = session.get('id_token')
+    refresh_token   = session.get('refresh_token')
+    access_token    = session.get('access_token')
+    auth = Cognito(AWS_COGNITO_POOL_ID, AWS_COGNITO_CLIENT_ID, id_token=id_token, refresh_token=refresh_token, access_token=access_token, access_key='dummy', secret_key='dummy')
+    try:
+        if auth.check_token():
+            session['id_token']         = auth.id_token
+            session['access_token']     = auth.access_token
+    except Exception as e:
+        # Something went wrong. Log out the user.
+        print(e)
+        return redirect(url_for('auth_page.signout'))
+    user = auth.client.get_user(AccessToken=session.get('access_token'))
+    user = auth.get_user_obj(username=user['Username'], attribute_list=user['UserAttributes'], attr_map={"custom:discord":"discord", "custom:esea":"esea"})
     # Check if team exists
     team = Teams.query.filter(Teams.name == name).first()
     players = db.engine.execute('SELECT * FROM `players` WHERE players.team_id = '+ str(team.team_id) +'')
@@ -55,7 +69,7 @@ def team(name):
                 already_leader = Players.query.filter(Teams.leader == session.get('username')).count()
                 #if player isnt in players table it will create a new row for the player
                 if already_on_team == None:
-                    new_post = Players(session.get('username'), 'null', team.team_id, 'false')
+                    new_post = Players(session.get('username'), 'null', team.team_id, 'false', user.esea)
                     db.session.add(new_post)
                     db.session.commit()
                     flash('You have joined the team', 'success')
@@ -84,6 +98,20 @@ def team(name):
 @teams_page.route('/createteam', methods=['post', 'get'])
 @login_required
 def create():
+    id_token        = session.get('id_token')
+    refresh_token   = session.get('refresh_token')
+    access_token    = session.get('access_token')
+    auth = Cognito(AWS_COGNITO_POOL_ID, AWS_COGNITO_CLIENT_ID, id_token=id_token, refresh_token=refresh_token, access_token=access_token, access_key='dummy', secret_key='dummy')
+    try:
+        if auth.check_token():
+            session['id_token']         = auth.id_token
+            session['access_token']     = auth.access_token
+    except Exception as e:
+        # Something went wrong. Log out the user.
+        print(e)
+        return redirect(url_for('auth_page.signout'))
+    user = auth.client.get_user(AccessToken=session.get('access_token'))
+    user = auth.get_user_obj(username=user['Username'], attribute_list=user['UserAttributes'], attr_map={"custom:discord":"discord", "custom:esea":"esea"})
     player_check = Teams.query.filter(Players.name == session.get('username')).count()
     form = CreateTeamForm()
     if form.validate_on_submit():
@@ -104,7 +132,7 @@ def create():
             db.session.add(new_post)
             db.session.commit()
             team1 = Teams.query.filter(Teams.name == form.teamname.data).first()
-            new_player = Players(session.get('username'), form.school.data, team1.team_id, 'false')
+            new_player = Players(session.get('username'), form.school.data, team1.team_id, 'false', user.esea)
             db.session.add(new_player)
             db.session.commit()
             flash('Your team has been successfully created!', 'success')

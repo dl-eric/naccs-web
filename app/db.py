@@ -71,12 +71,14 @@ class Players(db.Model):
     school           = db.Column(db.String(255), primary_key=False, unique=False, nullable=True)
     team_id         = db.Column(db.Integer, primary_key=False, unique=False, nullable=False)
     paid            = db.Column(db.String(5), primary_key=False, unique=False, nullable=False)
+    esea            = db.Column(db.String(255), primary_key=False, unique=False, nullable=False)
 
-    def __init__ (self, name, school, team_id, paid):
+    def __init__ (self, name, school, team_id, paid, esea):
         self.name       = name
         self.school     = school
         self.team_id    = team_id
         self.paid       = paid
+        self.esea       = esea
 
 class Payments(db.Model):
     name       = db.Column(db.String(255), primary_key=True)
