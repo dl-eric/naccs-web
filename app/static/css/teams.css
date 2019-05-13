@@ -30,9 +30,11 @@
 select{
   font-size: 18px;
 }
+
 #teamtype{
   margin-right: 2%;
 }
+
 .forminput{
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -53,14 +55,16 @@ th, td {
     padding: 5px 5px;
     border-bottom: 1px solid #ddd;
   }
-tr:nth-child(even) {background-color: #f2f2f2;}
 
-  ul{
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+ul{
     list-style-type: none;
+}
 
-  }
-
-  #submit {
+#submit {
     transition: box-shadow 0.1s;
     cursor: pointer;
     margin-top: 10px;
@@ -75,11 +79,11 @@ tr:nth-child(even) {background-color: #f2f2f2;}
     border-radius: 5px;
   }
 
-  #submit:hover {
+#submit:hover {
     box-shadow: 0 0px 10px #bbb;
   }
 
-  #submit-teams {
+#submit-teams {
     transition: box-shadow 0.1s;
     cursor: pointer;
     margin-top: 10px;
@@ -95,14 +99,14 @@ tr:nth-child(even) {background-color: #f2f2f2;}
     border-radius: 5px;
   }
 
-  #submit-teams:hover {
+#submit-teams:hover {
     box-shadow: 0 0px 10px #bbb;
   }
-  .center{
+.center{
     vertical-align: middle;
     line-height: 25px;
   }
-  .paybutton{
+.paybutton{
     align-items : center;
     line-height: 25px;
     width: 100%;
@@ -115,14 +119,14 @@ tr:nth-child(even) {background-color: #f2f2f2;}
     padding: 10px 40px;
     margin-left: 17%;
   }
-  .playername{
+.playername{
     font-weight: bold;
   }
-  .playerpay{
+.playerpay{
     margin-left: 10px;
     font-size: 15px;
   }
-  .returnbutton{
+.returnbutton{
     margin-left: 40%;
     line-height: 25px;
     width: 100%;
@@ -134,11 +138,12 @@ tr:nth-child(even) {background-color: #f2f2f2;}
     border-radius: 5px;
     padding: 10px 40px;
   }
-  .rules {
+.rules {
     display : flex;
     align-items : center;
     text-align: center;
 }
+
 .rulesbutton{
   align-items : center;
   line-height: 25px;
