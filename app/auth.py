@@ -119,7 +119,7 @@ def signin():
             session['verify'] = True
             session['username'] = email_or_username
             return redirect(url_for('auth_page.verification'))
-        except auth.client.exceptions.PasswordResetRequiredException:
+        except auth.client.exceptions.ForceChangePasswordException:
             flash("Admin created accounts are currently not supported.", "error")
             return render_template('signin.html', form=form)
 
