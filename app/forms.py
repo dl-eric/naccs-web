@@ -108,7 +108,8 @@ class SignInForm(FlaskForm):
     submit                  = SubmitField("Sign In")
 
 class ProfileForm(FlaskForm):
-    discord     = StringField(validators=[DataRequired(), discord_validate], render_kw={'class': 'input', 'placeholder': ' '})
+    discord     = StringField(validators=[DataRequired(), discord_validate])
+    esea        = StringField(validators=[DataRequired(), esea_validate])
     submit      = SubmitField("Change Profile")
 
 class ArticleForm(FlaskForm):

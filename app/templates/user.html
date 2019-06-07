@@ -42,13 +42,13 @@
       </label>
 
       <label for="inp" class="inp">
-          {{ form.discord }}
+          {{ form.discord(class='input', placeholder=' ') }}
           <span class="label">Discord</span>
           <span class="border"></span>
       </label>
 
       <label for="inp" class="inp">
-          <input disabled class="input" value="{{ user['esea'] }}">
+          {{ form.esea(class='input', placeholder=' ') }}
           <span class="label">ESEA Profile</span>
           <span class="border"></span>
       </label>

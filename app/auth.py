@@ -84,9 +84,10 @@ def user():
     
     if form.validate_on_submit():
         discord = form.discord.data 
-        
+        esea    = form.esea.data
+
         try:
-            auth.update_profile({'custom:discord':discord}, attr_map=dict())
+            auth.update_profile({'custom:discord': discord, 'custom:esea': esea}, attr_map=dict())
             flash('Sucessfully changed profile settings!', 'success')
         except:
             flash("Something went wrong.", "error")
@@ -95,7 +96,8 @@ def user():
     user = auth.client.get_user(AccessToken=session.get('access_token'))
     user = auth.get_user_obj(username=user['Username'], attribute_list=user['UserAttributes'], attr_map={"custom:discord":"discord", "custom:esea":"esea"})
     form.discord.data = user.discord
-
+    form.esea.data = user.esea
+    
     return render_template('user.html', user=user, form=form)
 
 @auth_page.route('/signin', methods=['post', 'get'])
