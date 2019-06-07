@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, session, jsonify, abort, url_for, 
 from db import db, School
 from forms import SchoolForm
 
+
 schools_page = Blueprint('schools', __name__, url_prefix='/schools', template_folder='templates')
 
 @schools_page.route('/', methods=['get', 'post'])

@@ -2,9 +2,12 @@ from flask import Flask, render_template, session, request
 from auth import auth_page
 from news import news_page
 from schools import schools_page
+from teams import teams_page
+from payments import payments_page
 import os
 from matches import Matches
 from db import db, School
+from flask import Flask
 
 db_user       = os.environ.get('DB_USER')
 db_password   = os.environ.get('DB_PASSWORD')
@@ -18,6 +21,8 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.register_blueprint(auth_page)
 app.register_blueprint(news_page)
 app.register_blueprint(schools_page)
+app.register_blueprint(teams_page)
+app.register_blueprint(payments_page)
 
 @app.errorhandler(404)
 def page_not_found(e):
@@ -41,6 +46,11 @@ def index():
         matches = {}
     
     return render_template("index.html", matches=matches)
+
+@app.route('/rules')
+def rules():
+    return render_template('rules.html')
+
 
 if __name__ == '__main__':
     if os.environ.get('FLASK_DEBUG'):

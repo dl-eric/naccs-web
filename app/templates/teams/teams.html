@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/teams.css') }}?q=1280549780">
+
+<div class="rules">
+<a  class="rulesbutton"  href="/rules">Summer League Rules</a>
+</div>
+<div class="card">
+        <div class="center">
+    {% with messages = get_flashed_messages(category_filter=["success"]) %}
+    {% if messages %}
+        <ul class="flashes success">
+    {% for message in messages %}
+        <li>{{ message }}</li>
+    {% endfor %}
+        </ul>
+    {% endif %}
+    {% endwith %}
+
+    {% with messages = get_flashed_messages(category_filter=["error"]) %}
+    {% if messages %}
+        <ul class="flashes error">
+    {% for message in messages %}
+        <li>{{ message }}</li>
+    {% endfor %}
+        </ul>
+    {% endif %}
+    {% endwith %}
+
+        <table>
+                <tr>
+                  <th>Team Name</th>
+                  <th>College</th>
+                </tr>
+
+                {% for team in teams %}
+
+                <tr>
+                  <td><a href="/teams/{{team['name']}}">{{team['name']}}</a></td>
+                  <td>{{team['school']}}</td>
+
+                </tr>
+                <tr>
+
+                  {% endfor %}
+
+              </table>
+              <br><br>
+
+              <a id="submit-teams" class="center"  href="./createteam">Create Team</a>
+            </div>
+
+
+
+</div>
+{% if player_check != None %}
+<div class="card">
+    <a class="paybutton"  href="/payment/paypal_payment">Pay Summer League Fee</a>
+
+</div>
+{% endif %}
+{% endblock %}

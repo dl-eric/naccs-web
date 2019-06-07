@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/teams.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/schools.css') }}">
+
+
+<div class="card">
+    {% with messages = get_flashed_messages(category_filter=["success"]) %}
+    {% if messages %}
+        <ul class="flashes success">
+    {% for message in messages %}
+        <li>{{ message }}</li>
+    {% endfor %}
+        </ul>
+    {% endif %}
+    {% endwith %}
+
+    {% with messages = get_flashed_messages(category_filter=["error"]) %}
+    {% if messages %}
+        <ul class="flashes error">
+    {% for message in messages %}
+        <li>{{ message }}</li>
+    {% endfor %}
+        </ul>
+    {% endif %}
+    {% endwith %}
+        <div class="title">Create a Team</div>
+        <div class="flex-container">
+                
+                <form action="" method="POST" enctype="multipart/form-data">
+                    
+                    {{ form.csrf_token() }}      
+
+                    <label class="label">{{ form.school.label }}</label> 
+                    <div class="teamtype">{{ form.school(class="forminput") }}</div>
+
+                    <label class="label">{{ form.teamname.label }}</label> 
+                    <div class="teamtype">{{ form.teamname(class="forminput") }}</div>
+
+                    <div class="create-title">
+                     <label class="label">{{ form.teamtype.label }}</label> 
+                     <div class="teamtype">{{ form.teamtype(class="forminput") }}</div>
+                    
+                     <label class="label">Leader: {{ username }}</label>   
+
+                    </div>
+                    <label class="label">{{ form.password.label }}</label>
+                    <div class="create-title">
+                        {{ form.password(class="forminput")}}
+                    </div>
+
+
+                    {{ form.submit(class="submit-button") }}
+               
+             </form>
+            
+                
+            </div>
+</div>
+
+{% endblock %}

@@ -30,6 +30,21 @@ class School(db.Model):
            'logo_path'  : self.logo_path
         }
 
+class Teams(db.Model):
+    team_id         = db.Column(db.Integer, primary_key=True)
+    school          = db.Column(db.String(255), unique=True, nullable=False)
+    name            = db.Column(db.String(255), unique=False, nullable=False)
+    team_type       = db.Column(db.String(255), unique=False, nullable=False)
+    leader          = db.Column(db.String(255), unique=False, nullable=False)
+    password        = db.Column(db.String(255), unique=False, nullable=False)
+
+    def __init__ (self, school, name, team_type, leader, password):
+        self.school = school
+        self.name = name
+        self.team_type = team_type
+        self.leader = leader
+        self.password = password
+
 
 class Article(db.Model):
     id              = db.Column(db.Integer, primary_key=True)
@@ -42,10 +57,38 @@ class Article(db.Model):
     image_path      = db.Column(db.String(100), nullable=False)
 
     def __init__ (self, title, author, author_username, content, summary, image_path='https://s3.us-east-2.amazonaws.com/naccs-s3/headerbanner_wide.png'):
-        self.title = title 
-        self.author = author 
+        self.title = title
+        self.author = author
         self.author_username = author_username
         self.date = datetime.now()
-        self.content = content 
+        self.content = content
         self.summary = summary
         self.image_path = image_path
+
+class Players(db.Model):
+    player_id       = db.Column(db.Integer, primary_key=True)
+    name              = db.Column(db.String(255), primary_key=False, unique=False, nullable=False)
+    school           = db.Column(db.String(255), primary_key=False, unique=False, nullable=True)
+    team_id         = db.Column(db.Integer, primary_key=False, unique=False, nullable=False)
+    paid            = db.Column(db.String(5), primary_key=False, unique=False, nullable=False)
+    esea            = db.Column(db.String(255), primary_key=False, unique=False, nullable=False)
+
+    def __init__ (self, name, school, team_id, paid, esea):
+        self.name       = name
+        self.school     = school
+        self.team_id    = team_id
+        self.paid       = paid
+        self.esea       = esea
+
+class Payments(db.Model):
+    name       = db.Column(db.String(255), primary_key=True)
+    paymentid              = db.Column(db.String(255), primary_key=False, unique=False, nullable=False)
+    payerid           = db.Column(db.String(255), primary_key=False, unique=False, nullable=True)
+    date           = db.Column(db.String(255), primary_key=False, unique=False, nullable=True)
+
+
+    def __init__ (self, name, paymentid, payerid, date):
+        self.name       = name
+        self.paymentid     = paymentid
+        self.payerid    = payerid
+        self.date       = date
