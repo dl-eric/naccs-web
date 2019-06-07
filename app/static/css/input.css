@@ -7,7 +7,6 @@ form {
   position: relative;
   margin: 10px 0 10px;
   width: 100%;
-  max-width: 300px;
 }
 .inp .label {
   position: absolute;
