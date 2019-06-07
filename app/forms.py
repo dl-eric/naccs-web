@@ -138,3 +138,8 @@ class ForgotPasswordConfirmForm(FlaskForm):
     new     = PasswordField("New Password", validators=[DataRequired(), password_validate])
     confirm = PasswordField("Confirm Password", validators=[DataRequired(), EqualTo('new', message="Passwords must match.")])
     submit  = SubmitField("Change Password")
+
+class ForceChangePasswordForm(FlaskForm):
+    new     = PasswordField("New Password", validators=[DataRequired(), password_validate])
+    confirm = PasswordField("Confirm Password", validators=[DataRequired(), EqualTo('new', message="Passwords must match.")])
+    submit  = SubmitField("Change Password")

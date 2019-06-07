@@ -1,9 +1,9 @@
 import os
 import functools
 from flask import Blueprint, render_template, request, redirect, url_for, session, flash
-from warrant import Cognito
+from warrant import Cognito, exceptions
 from warrant.aws_srp import AWSSRP
-from forms import RegisterForm, VerificationForm, SignInForm, ProfileForm, email_validate, ChangePasswordForm, ForgotPasswordForm, ForgotPasswordConfirmForm
+from forms import RegisterForm, VerificationForm, SignInForm, ProfileForm, email_validate, ChangePasswordForm, ForgotPasswordForm, ForgotPasswordConfirmForm, ForceChangePasswordForm
 import boto3
 
 AWS_COGNITO_POOL_ID     = os.environ.get('AWS_COGNITO_POOL_ID')
@@ -12,6 +12,16 @@ AWS_IAM_ACCESS_KEY      = os.environ.get('AWS_IAM_ACCESS_KEY')
 AWS_IAM_SECRET_KEY      = os.environ.get('AWS_IAM_SECRET_KEY')
 
 auth_page = Blueprint('auth_page', __name__, template_folder='templates')
+
+def change_pass_required(view):
+    @functools.wraps(view)
+    def wrapped_view(**kwargs):
+        if 'challenge-session' not in session:
+            return redirect(url_for('auth_page.signin'))
+
+        return view(**kwargs)
+
+    return wrapped_view
 
 def login_required(view):
     @functools.wraps(view)
@@ -119,9 +129,11 @@ def signin():
             session['verify'] = True
             session['username'] = email_or_username
             return redirect(url_for('auth_page.verification'))
-        except auth.client.exceptions.ForceChangePasswordException:
-            flash("Admin created accounts are currently not supported.", "error")
-            return render_template('signin.html', form=form)
+        except exceptions.ForceChangePasswordException:
+            response = auth.client.initiate_auth(AuthFlow='USER_PASSWORD_AUTH', ClientId=AWS_COGNITO_CLIENT_ID, AuthParameters={'USERNAME': email_or_username, 'PASSWORD': password})
+            session['challenge-session'] = response['Session']
+            session['username'] = email_or_username
+            return redirect(url_for('auth_page.force_change_password'))
 
         user = auth.client.get_user(AccessToken=auth.access_token)
         session['username'] = user['Username']
@@ -225,6 +237,31 @@ def register():
     return render_template('register.html', form=form)
 
 # Used for FORCE CHANGE PASSWORD case
+@auth_page.route('/forcechangepass', methods=['post','get'])
+@change_pass_required
+def force_change_password():
+    auth = Cognito(AWS_COGNITO_POOL_ID, AWS_COGNITO_CLIENT_ID)
+    form = ForceChangePasswordForm()
+
+    if form.validate_on_submit():
+        new_pass = form.new.data
+        confirm_pass = form.confirm.data
+
+        try:
+            auth.client.respond_to_auth_challenge(ClientId=AWS_COGNITO_CLIENT_ID, ChallengeName='NEW_PASSWORD_REQUIRED', Session=session['challenge-session'], ChallengeResponses={'USERNAME': session['username'], 'NEW_PASSWORD': confirm_pass})
+        except Exception as e:
+            print(e)
+            flash("Something went wrong.", 'error')
+            return render_template('forcechangepass.html', form=form)
+        
+        session.pop('challenge-session')
+        session.pop('username')
+        flash("Password changed successfully!", 'success')
+        return redirect(url_for('auth_page.signin'))
+    else:
+        flash_errors(form)
+    return render_template('forcechangepass.html', form=form)
+
 @auth_page.route('/changepassword', methods=['post','get'])
 @login_required
 def change_password():
