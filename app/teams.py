@@ -7,6 +7,7 @@ from passlib.hash import bcrypt_sha256
 from warrant import Cognito
 from warrant.aws_srp import AWSSRP
 import os
+import copy
 
 teams_page = Blueprint('teams', __name__, url_prefix='/teams', template_folder='templates')
 
@@ -40,6 +41,15 @@ def teams():
 def rules():
     return render_template('rules.html')
 
+def is_ready(players):
+    mplayers = players
+    count = 0
+    for player in mplayers:
+        if player.paid:
+            count += 1
+        if count >= 5:
+            return True
+    return False
 
 @teams_page.route('/<name>', methods=['post', 'get'])
 def team(name):
@@ -59,8 +69,11 @@ def team(name):
     user = auth.get_user_obj(username=user['Username'], attribute_list=user['UserAttributes'], attr_map={"custom:discord":"discord", "custom:esea":"esea"})
     # Check if team exists
     team = Teams.query.filter(Teams.name == name).first()
-    players = db.engine.execute('SELECT * FROM `players` WHERE players.team_id = '+ str(team.team_id) +'')
+    players_query = db.engine.execute('SELECT * FROM `players` WHERE players.team_id = '+ str(team.team_id) +'')
+    players = copy.deepcopy(list(players_query))
     p = Players.query.filter(Players.name == session.get('username')).first()
+    ready = is_ready(players)
+  
     if name == None:
         abort(404)
     form = JoinTeam()
@@ -96,7 +109,7 @@ def team(name):
     if lform.validate_on_submit():
         return redirect(url_for('teams.leaveconfirm'))
 
-    return render_template("teams/team.html", username=session.get('username'), team=team, players=players, form=form, lform=lform, p=p)
+    return render_template("teams/team.html", username=session.get('username'), team=team, players=players, form=form, lform=lform, p=p, ready=ready)
 
 @teams_page.route('/createteam', methods=['post', 'get'])
 @login_required

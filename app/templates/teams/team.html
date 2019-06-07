@@ -30,7 +30,6 @@
     <label class="title">{{ team.name }}</label>
 </div>
     <label class="leader"> Leader: {{team.leader}}</label><br>
-
         {% for player in players %}
 
         <label class="playername">{{player['name']}} </label>
@@ -44,6 +43,11 @@
 
         <br>
         {% endfor %}
+
+        {% if ready %}<h3 style="color: #006400; text-align: center;">--- READY ---</h3>
+        {% else %}<h3 style="color: #a00000; text-align: center;">--- NOT READY ---</h3>
+        {% endif %}
+
         {% if session['access_token'] is defined %}
         <form action="" method="POST" enctype="multipart/form-data">
             {{ form.csrf_token() }}
