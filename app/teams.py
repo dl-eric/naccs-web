@@ -42,10 +42,9 @@ def rules():
     return render_template('rules.html')
 
 def is_ready(players):
-    mplayers = players
     count = 0
-    for player in mplayers:
-        if player.paid:
+    for player in players:
+        if player.paid == 'true':
             count += 1
         if count >= 5:
             return True
