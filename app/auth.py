@@ -242,7 +242,7 @@ def register():
 @auth_page.route('/forcechangepass', methods=['post','get'])
 @change_pass_required
 def force_change_password():
-    auth = Cognito(AWS_COGNITO_POOL_ID, AWS_COGNITO_CLIENT_ID)
+    auth = Cognito(AWS_COGNITO_POOL_ID, AWS_COGNITO_CLIENT_ID, access_key=AWS_IAM_ACCESS_KEY, secret_key=AWS_IAM_SECRET_KEY)
     form = ForceChangePasswordForm()
 
     if form.validate_on_submit():
@@ -252,7 +252,7 @@ def force_change_password():
         try:
             auth.client.respond_to_auth_challenge(ClientId=AWS_COGNITO_CLIENT_ID, ChallengeName='NEW_PASSWORD_REQUIRED', Session=session['challenge-session'], ChallengeResponses={'USERNAME': session['username'], 'NEW_PASSWORD': confirm_pass})
         except Exception as e:
-            print(e)
+            print('force_change_password:', e)
             flash("Something went wrong.", 'error')
             return render_template('forcechangepass.html', form=form)
         
